@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -97,8 +98,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                    progressBar.setVisibility(View.GONE);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if(user.isEmailVerified()) {
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    else {
+                        user.sendEmailVerification();
+                        Toast.makeText(MainActivity.this, "Проверьте свою почту, чтобы подтверлить аккаунт", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Ошибка! Проверьте введенные данные!", Toast.LENGTH_LONG).show();
