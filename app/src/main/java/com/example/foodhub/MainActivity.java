@@ -2,6 +2,7 @@ package com.example.foodhub;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -101,7 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     if(user.isEmailVerified()) {
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+//                        startActivity(new Intent(MainActivity.this, FoodHubActivity.class));
+                        startActivity(new Intent(MainActivity.this, FoodHubActivity.class));
                         progressBar.setVisibility(View.GONE);
                     }
                     else {
