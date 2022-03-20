@@ -44,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference = FirebaseDatabase.getInstance().getReference("Recipes");
         userId = user.getUid();
 
         final TextView profileEmail = (TextView) findViewById(R.id.profileEmail);
