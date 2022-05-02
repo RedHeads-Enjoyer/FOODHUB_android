@@ -7,7 +7,21 @@
     tools:context=".AddRecipeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/addRecipeNewStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Новый шаг"
+        android:layout_marginRight="10px"
+        android:layout_marginBottom="10px"
+        android:layout_gravity="bottom|right"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,9 +33,9 @@
                 android:id="@+id/addRecipeImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="91dp"
-                android:text="Button"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="124dp"
+                android:text="Картинка"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
 
@@ -49,13 +63,24 @@
 
             <ImageView
                 android:id="@+id/addRecipeImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="69dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="400px"
+                android:layout_height="400px"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="68dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/icons8___150"
                 app:layout_constraintStart_toEndOf="@+id/addRecipeImageButton"
                 app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+
+            <LinearLayout
+                android:id="@+id/newStepLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addRecipeImage">
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

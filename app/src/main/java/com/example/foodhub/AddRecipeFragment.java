@@ -5,18 +5,29 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.logging.ConsoleHandler;
 
 public class AddRecipeFragment extends Fragment {
+
+    private int step = 1;
+    private ArrayList<EditText> descriptions;
+    private ArrayList<EditText> times;
 
     private EditText name, description;
     private static final int RESULT_OK = 3;
@@ -40,6 +51,28 @@ public class AddRecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_recipe, container, false);
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.newStepLayout);
+
+        Button addStep = (Button) view.findViewById(R.id.addRecipeNewStep);
+        addStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView countStep = new TextView(view.getContext());
+                EditText description = new EditText(view.getContext());
+                EditText time = new EditText(view.getContext());
+
+                descriptions.add(description);
+                times.add(time);
+
+                countStep.setText("Этап " + step);
+                description.setHint("описание");
+                time.setHint("время");
+                linearLayout.addView(countStep);
+                linearLayout.addView(description);
+                linearLayout.addView(time);
+                step += 1;
+                }
+        });
 
         picture = (ImageView) view.findViewById(R.id.addRecipeImage);
         gallery = (Button) view.findViewById(R.id.addRecipeImageButton);
@@ -47,7 +80,7 @@ public class AddRecipeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
+                startActivityForResult(intent, RESULT_OK);
             }
         });
         return view;
