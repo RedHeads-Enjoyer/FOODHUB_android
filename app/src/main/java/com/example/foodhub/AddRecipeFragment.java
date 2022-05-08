@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.logging.ConsoleHandler;
@@ -57,20 +64,34 @@ public class AddRecipeFragment extends Fragment {
         addStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView countStep = new TextView(view.getContext());
-                EditText description = new EditText(view.getContext());
-                EditText time = new EditText(view.getContext());
-
-                descriptions.add(description);
-                times.add(time);
-
-                countStep.setText("Этап " + step);
-                description.setHint("описание");
-                time.setHint("время");
-                linearLayout.addView(countStep);
-                linearLayout.addView(description);
-                linearLayout.addView(time);
-                step += 1;
+                Recipe r = new Recipe();
+                r.setName("newrec");
+                FirebaseDatabase.getInstance().getReference("Rec")
+                        .setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "S", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), ":(", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+//                TextView countStep = new TextView(view.getContext());
+//                EditText description = new EditText(view.getContext());
+//                EditText time = new EditText(view.getContext());
+//
+//                descriptions.add(description);
+//                times.add(time);
+//
+//                countStep.setText("Этап " + step);
+//                description.setHint("описание");
+//                time.setHint("время");
+//                linearLayout.addView(countStep);
+//                linearLayout.addView(description);
+//                linearLayout.addView(time);
+//                step += 1;
                 }
         });
 
