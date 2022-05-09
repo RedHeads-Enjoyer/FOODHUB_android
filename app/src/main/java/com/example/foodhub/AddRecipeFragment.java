@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.foodhub.steps.AddRecipeAdapter;
+import com.example.foodhub.steps.Step;
 
 import java.util.ArrayList;
-import java.util.logging.ConsoleHandler;
 
 public class AddRecipeFragment extends Fragment {
 
@@ -40,10 +33,16 @@ public class AddRecipeFragment extends Fragment {
     private static final int RESULT_OK = 3;
     private Button gallery;
     private ImageView picture;
+
+    private AddRecipeAdapter addRecipeAdapter;
+
+    ArrayList<Step> steps = new ArrayList<Step>();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+        super.onCreate(savedInstanceState); }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -60,38 +59,41 @@ public class AddRecipeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_recipe, container, false);
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.newStepLayout);
 
+        setInitialData();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.addrecipeview);
+        addRecipeAdapter = new AddRecipeAdapter(getContext(), steps);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(addRecipeAdapter);
+
         Button addStep = (Button) view.findViewById(R.id.addRecipeNewStep);
         addStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Recipe r = new Recipe();
-                r.setName("newrec");
-                FirebaseDatabase.getInstance().getReference("Rec")
-                        .setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "S", Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            Toast.makeText(getActivity(), ":(", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-//                TextView countStep = new TextView(view.getContext());
-//                EditText description = new EditText(view.getContext());
-//                EditText time = new EditText(view.getContext());
-//
-//                descriptions.add(description);
-//                times.add(time);
-//
-//                countStep.setText("Этап " + step);
-//                description.setHint("описание");
-//                time.setHint("время");
-//                linearLayout.addView(countStep);
-//                linearLayout.addView(description);
-//                linearLayout.addView(time);
-//                step += 1;
+                steps.add(new Step("a", "1"));
+
+                addRecipeAdapter.notifyItemInserted(steps.size() - 1);
+
+//                addRecipeAdapter = new AddRecipeAdapter(getContext(), steps);
+//                recyclerView.setAdapter(addRecipeAdapter);
+
+
+//                Recipe r = new Recipe();
+//                r.setName("newrec");
+//                FirebaseDatabase.getInstance().getReference("Rec").push().setValue(r);
+//                FirebaseDatabase.getInstance().getReference("Rec")
+//                        .setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            Toast.makeText(getActivity(), "S", Toast.LENGTH_LONG).show();
+//                        }
+//                        else {
+//                            Toast.makeText(getActivity(), ":(", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+
                 }
         });
 
@@ -105,5 +107,9 @@ public class AddRecipeFragment extends Fragment {
             }
         });
         return view;
+    }
+    private void setInitialData() {
+        steps.add(new Step("a", "1"));
+        steps.add(new Step("b", "2"));
     }
 }
