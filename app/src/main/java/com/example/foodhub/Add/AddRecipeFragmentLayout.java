@@ -42,6 +42,8 @@ public class AddRecipeFragmentLayout extends Fragment {
 
     private AddRecipeAdapter addRecipeAdapter;
 
+    ArrayList<String> step_desc = new ArrayList<String>();
+    ArrayList<String> step_duration = new ArrayList<String>();
     ArrayList<Step> steps = new ArrayList<Step>();
 
     @Override
@@ -76,7 +78,13 @@ public class AddRecipeFragmentLayout extends Fragment {
         bundle = this.getArguments();
         name       .setText(bundle.getString("recipe_name"));
         description.setText(bundle.getString("recipe_desc"));
-        steps = ((ArrayList<Step>) bundle.getSerializable("list"));
+        step_duration = bundle.getStringArrayList("step_duration_list");
+        step_desc = bundle.getStringArrayList("step_desc_list");
+        if (step_duration != null) {
+            for (int i = 0; i < step_duration.size(); i++) {
+                steps.add(new Step(step_desc.get(i), step_duration.get(i)));
+            }
+        }
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +95,6 @@ public class AddRecipeFragmentLayout extends Fragment {
         });
 
 
-//        setInitialData();
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.addrecipeview);
         addRecipeAdapter = new AddRecipeAdapter(getContext(), steps);
@@ -102,9 +109,17 @@ public class AddRecipeFragmentLayout extends Fragment {
             public void onClick(View view) {
                 Bundle addStepBundle = new Bundle();
 
+
                 addStepBundle.putString("recipe_name", name.getText().toString().trim());
                 addStepBundle.putString("recipe_desc", description.getText().toString().trim());
-                addStepBundle.putSerializable("list", steps);
+
+                for (int i = 0; i < steps.size(); i++) {
+                    step_desc.add(steps.get(i).getDesc());
+                    step_duration.add(steps.get(i).getDuration());
+                }
+
+                addStepBundle.putStringArrayList("step_desc_list", step_desc);
+                addStepBundle.putStringArrayList("step_duration_list", step_duration);
 
                 Fragment ans = new add_new_step();
                 ans.setArguments(addStepBundle);
@@ -114,8 +129,6 @@ public class AddRecipeFragmentLayout extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
-
-//                Bundle bundle= new Bundle();
 
 
 
@@ -160,10 +173,5 @@ public class AddRecipeFragmentLayout extends Fragment {
         r.setName(name.getText().toString().trim());
         r.setDescription(description.getText().toString().trim());
         r.setSteps(steps);
-    }
-
-    private void setInitialData() {
-        steps.add(new Step("a", "1"));
-        steps.add(new Step("b", "2"));
     }
 }

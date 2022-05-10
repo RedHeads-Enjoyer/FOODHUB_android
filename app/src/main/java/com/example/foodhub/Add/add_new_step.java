@@ -48,18 +48,29 @@ public class add_new_step extends Fragment {
 
 
         Bundle finalLoadBundle = loadBundle;
-        ArrayList<Step> steps = new ArrayList<>();
-        steps = (ArrayList<Step>) bundle.getSerializable("list");
-        ArrayList<Step> finalSteps = steps;
+
+
+        ArrayList<String> step_desc = new ArrayList<String>();
+        ArrayList<String> step_duration = new ArrayList<String>();
+
+        assert loadBundle != null;
+        step_desc = loadBundle.getStringArrayList("step_desc_list");
+        step_duration = loadBundle.getStringArrayList("step_duration_list");
+
+
+        ArrayList<String> finalStep_desc = step_desc;
+        ArrayList<String> finalStep_duration = step_duration;
         confirmAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("desc", addDesc.getText().toString().trim());
-                bundle.putString("duration", addDuration.getText().toString().trim());
+
+                finalStep_desc.add(addDesc.getText().toString().trim());
+                finalStep_duration.add(addDuration.getText().toString().trim());
+                bundle.putStringArrayList("step_desc_list", finalStep_desc);
+                bundle.putStringArrayList("step_duration_list", finalStep_duration);
                 bundle.putString("recipe_name", finalLoadBundle.getString("recipe_name"));
                 bundle.putString("recipe_desc", finalLoadBundle.getString("recipe_desc"));
-                finalSteps.add(new Step(addDesc.getText().toString().trim(), addDuration.getText().toString().trim()));
-                bundle.putSerializable("list", finalSteps);
+
                 Fragment addrecipe = new AddRecipeFragmentLayout();
                 addrecipe.setArguments(bundle);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
