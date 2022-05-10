@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Add;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,10 +18,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.example.foodhub.steps.AddRecipeAdapter;
-import com.example.foodhub.steps.Step;
+import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class AddRecipeFragment extends Fragment {
 
     private EditText name, description;
     private static final int RESULT_OK = 3;
-    private Button gallery;
+    private Button gallery, send;
     private ImageView picture;
 
     private AddRecipeAdapter addRecipeAdapter;
@@ -57,7 +58,22 @@ public class AddRecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_recipe, container, false);
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.newStepLayout);
+
+        send        = view.findViewById(R.id.sendRecipeBtn);
+        name        = view.findViewById(R.id.addRecipeName);
+        description = view.findViewById(R.id.addRecipeDesc);
+        picture     = view.findViewById(R.id.addRecipeImage);
+        gallery     = view.findViewById(R.id.addRecipeImageButton);
+
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                sendRecipe();
+                Toast.makeText(getActivity(), "S", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         setInitialData();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.addrecipeview);
@@ -70,12 +86,22 @@ public class AddRecipeFragment extends Fragment {
         addStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                steps.add(new Step("a", "1"));
 
-                addRecipeAdapter.notifyItemInserted(steps.size() - 1);
+                Fragment ans = new add_new_step();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.addNewRecipeLayout, ans);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
-//                addRecipeAdapter = new AddRecipeAdapter(getContext(), steps);
-//                recyclerView.setAdapter(addRecipeAdapter);
+
+//                Bundle bundle= new Bundle();
+
+
+
+//                steps.add(new Step("a", "1"));
+//                addRecipeAdapter.notifyItemInserted(steps.size() - 1);
+
 
 
 //                Recipe r = new Recipe();
@@ -97,8 +123,8 @@ public class AddRecipeFragment extends Fragment {
                 }
         });
 
-        picture = (ImageView) view.findViewById(R.id.addRecipeImage);
-        gallery = (Button) view.findViewById(R.id.addRecipeImageButton);
+
+
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +134,13 @@ public class AddRecipeFragment extends Fragment {
         });
         return view;
     }
+
+//    private void sendRecipe() {
+//        Recipe r = new Recipe();
+//        r.setName(name.getText().toString().trim());
+//        r.set
+//    }
+
     private void setInitialData() {
         steps.add(new Step("a", "1"));
         steps.add(new Step("b", "2"));

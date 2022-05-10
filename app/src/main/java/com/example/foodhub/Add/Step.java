@@ -1,4 +1,4 @@
-package com.example.foodhub.steps;
+package com.example.foodhub.Add;
 
 public class Step {
     private String desc;
