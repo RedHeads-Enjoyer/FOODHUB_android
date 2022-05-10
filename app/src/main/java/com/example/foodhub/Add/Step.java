@@ -1,6 +1,8 @@
 package com.example.foodhub.Add;
 
-public class Step {
+import java.io.Serializable;
+
+public class Step implements Serializable {
     private String desc;
     private String duration;
 

@@ -13,7 +13,7 @@
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_add_new_step.xml" value="0.2890625" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_add_recipe.xml" value="0.24728260869565216" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_add_task.xml" value="0.33" />
-        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_food_hub.xml" value="0.25" />
+        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_food_hub.xml" value="0.22" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_food_hub2.xml" value="0.24728260869565216" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_foodhub.xml" value="0.24728260869565216" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
@@ -24,9 +24,11 @@
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_search_recipe.xml" value="0.24728260869565216" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_update_task.xml" value="0.5" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_user_profile.xml" value="0.24728260869565216" />
-        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/add_new_recipe_fragment_layout.xml" value="0.25" />
+        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/add_new_recipe_fragment_layout.xml" value="0.18" />
+        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_add_new_recipe_layout.xml" value="0.33" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_add_new_step.xml" value="0.28177083333333336" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_add_recipe.xml" value="0.33" />
+        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_add_recipe_layout.xml" value="0.315625" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_search_recipe.xml" value="0.24728260869565216" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_user_profile.xml" value="0.21124620060790272" />

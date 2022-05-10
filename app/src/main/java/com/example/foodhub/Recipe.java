@@ -8,8 +8,25 @@ import java.util.Date;
 public class Recipe {
     private String name, description;
     private ArrayList<Integer> rating;
-    private Date date;
-//    private ArrayList<Step> = new ArrayList;
+    private Date date = new Date();
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ArrayList<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(ArrayList<Step> steps) {
+        this.steps = steps;
+    }
+
+    private ArrayList<Step> steps = new ArrayList<>();
 
     public Recipe() {
 

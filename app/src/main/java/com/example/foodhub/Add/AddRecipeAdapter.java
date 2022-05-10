@@ -48,6 +48,7 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
 
     @Override
     public int getItemCount() {
+        if (steps == null) return 0;
         return steps.size();
     }
 
