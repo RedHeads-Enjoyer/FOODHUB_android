@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.foodhub.Add.AddRecipeAdapter;
-import com.example.foodhub.Add.Step;
 import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class AddRecipeFragmentLayout extends Fragment {
@@ -44,11 +41,13 @@ public class AddRecipeFragmentLayout extends Fragment {
 
     ArrayList<String> step_desc = new ArrayList<String>();
     ArrayList<String> step_duration = new ArrayList<String>();
+
     ArrayList<Step> steps = new ArrayList<Step>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
 
@@ -68,6 +67,11 @@ public class AddRecipeFragmentLayout extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_recipe_layout, container, false);
 
+        if (step_desc == null) Log.d("zxc", "0");
+        else Log.d("zxc", "1: ");
+        if (step_duration == null) Log.d("zxc", "0");
+        else Log.d("zxc", "1: ");
+
         send        = view.findViewById(R.id.sendRecipeBtn);
         name        = view.findViewById(R.id.addRecipeName);
         description = view.findViewById(R.id.addRecipeDesc);
@@ -76,15 +80,18 @@ public class AddRecipeFragmentLayout extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle = this.getArguments();
-        name       .setText(bundle.getString("recipe_name"));
-        description.setText(bundle.getString("recipe_desc"));
-        step_duration = bundle.getStringArrayList("step_duration_list");
-        step_desc = bundle.getStringArrayList("step_desc_list");
-        if (step_duration != null) {
-            for (int i = 0; i < step_duration.size(); i++) {
-                steps.add(new Step(step_desc.get(i), step_duration.get(i)));
+        if (bundle.getStringArrayList("step_duration_list") != null) {
+            name       .setText(bundle.getString("recipe_name"));
+            description.setText(bundle.getString("recipe_desc"));
+            step_duration = bundle.getStringArrayList("step_duration_list");
+            step_desc     = bundle.getStringArrayList("step_desc_list");
+            if (step_duration != null) {
+                for (int i = 0; i < step_duration.size(); i++) {
+                    steps.add(new Step(step_desc.get(i), step_duration.get(i)));
+                }
             }
         }
+
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +107,8 @@ public class AddRecipeFragmentLayout extends Fragment {
         addRecipeAdapter = new AddRecipeAdapter(getContext(), steps);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Log.d("zxc", "size " + step_desc.size());
         recyclerView.setAdapter(addRecipeAdapter);
-
 
         Button addStep = (Button) view.findViewById(R.id.addRecipeNewStep);
         addStep.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +127,11 @@ public class AddRecipeFragmentLayout extends Fragment {
 
                 addStepBundle.putStringArrayList("step_desc_list", step_desc);
                 addStepBundle.putStringArrayList("step_duration_list", step_duration);
+
+                if (step_desc == null) Log.d("zxc", "0");
+                else Log.d("zxc", "1: ");
+                if (step_duration == null) Log.d("zxc", "0");
+                else Log.d("zxc", "1: ");
 
                 Fragment ans = new add_new_step();
                 ans.setArguments(addStepBundle);

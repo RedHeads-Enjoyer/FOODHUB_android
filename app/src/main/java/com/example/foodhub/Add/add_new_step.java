@@ -50,24 +50,18 @@ public class add_new_step extends Fragment {
         Bundle finalLoadBundle = loadBundle;
 
 
-        ArrayList<String> step_desc = new ArrayList<String>();
-        ArrayList<String> step_duration = new ArrayList<String>();
+        ArrayList<String> step_desc = loadBundle.getStringArrayList("step_desc_list");
+        ArrayList<String> step_duration = loadBundle.getStringArrayList("step_duration_list");
 
         assert loadBundle != null;
-        step_desc = loadBundle.getStringArrayList("step_desc_list");
-        step_duration = loadBundle.getStringArrayList("step_duration_list");
-
-
-        ArrayList<String> finalStep_desc = step_desc;
-        ArrayList<String> finalStep_duration = step_duration;
         confirmAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                finalStep_desc.add(addDesc.getText().toString().trim());
-                finalStep_duration.add(addDuration.getText().toString().trim());
-                bundle.putStringArrayList("step_desc_list", finalStep_desc);
-                bundle.putStringArrayList("step_duration_list", finalStep_duration);
+                step_desc.add(addDesc.getText().toString().trim());
+                step_duration.add(addDuration.getText().toString().trim());
+                bundle.putStringArrayList("step_desc_list", step_desc);
+                bundle.putStringArrayList("step_duration_list", step_duration);
                 bundle.putString("recipe_name", finalLoadBundle.getString("recipe_name"));
                 bundle.putString("recipe_desc", finalLoadBundle.getString("recipe_desc"));
 
