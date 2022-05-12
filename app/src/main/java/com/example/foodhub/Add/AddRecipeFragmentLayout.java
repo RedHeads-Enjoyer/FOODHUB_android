@@ -67,11 +67,6 @@ public class AddRecipeFragmentLayout extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_recipe_layout, container, false);
 
-        if (step_desc == null) Log.d("zxc", "0");
-        else Log.d("zxc", "1: ");
-        if (step_duration == null) Log.d("zxc", "0");
-        else Log.d("zxc", "1: ");
-
         send        = view.findViewById(R.id.sendRecipeBtn);
         name        = view.findViewById(R.id.addRecipeName);
         description = view.findViewById(R.id.addRecipeDesc);
@@ -107,7 +102,6 @@ public class AddRecipeFragmentLayout extends Fragment {
         addRecipeAdapter = new AddRecipeAdapter(getContext(), steps);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        Log.d("zxc", "size " + step_desc.size());
         recyclerView.setAdapter(addRecipeAdapter);
 
         Button addStep = (Button) view.findViewById(R.id.addRecipeNewStep);
@@ -120,6 +114,9 @@ public class AddRecipeFragmentLayout extends Fragment {
                 addStepBundle.putString("recipe_name", name.getText().toString().trim());
                 addStepBundle.putString("recipe_desc", description.getText().toString().trim());
 
+
+                step_desc.clear();
+                step_duration.clear();
                 for (int i = 0; i < steps.size(); i++) {
                     step_desc.add(steps.get(i).getDesc());
                     step_duration.add(steps.get(i).getDuration());
@@ -127,11 +124,6 @@ public class AddRecipeFragmentLayout extends Fragment {
 
                 addStepBundle.putStringArrayList("step_desc_list", step_desc);
                 addStepBundle.putStringArrayList("step_duration_list", step_duration);
-
-                if (step_desc == null) Log.d("zxc", "0");
-                else Log.d("zxc", "1: ");
-                if (step_duration == null) Log.d("zxc", "0");
-                else Log.d("zxc", "1: ");
 
                 Fragment ans = new add_new_step();
                 ans.setArguments(addStepBundle);

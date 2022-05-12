@@ -6,8 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.R;
@@ -44,6 +48,19 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
                 notifyItemRemoved(holder.getAdapterPosition());
             }
         });
+        holder.editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventFragment eventFragment = EventFragment.newInstance();
+                Toast.makeText(inflater.getContext(), Integer.toString(holder.getAdapterPosition()), Toast.LENGTH_LONG).show();
+                Fragment addrecipe = new AddRecipeFragmentLayout();
+                FragmentManager fragmentManager = inflater.getContext().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     @Override
@@ -53,13 +70,14 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final Button buttonView;
+        final Button buttonView, editBtn;
         final TextView descView, durationView;
         ViewHolder(View view){
             super(view);
             descView = view.findViewById(R.id.desc);
             durationView = view.findViewById(R.id.duration);
             buttonView = view.findViewById(R.id.button_del_1);
+            editBtn = view.findViewById(R.id.button_edit_l);
         }
     }
 }

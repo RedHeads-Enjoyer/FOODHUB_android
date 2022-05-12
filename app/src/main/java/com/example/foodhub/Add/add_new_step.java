@@ -53,12 +53,16 @@ public class add_new_step extends Fragment {
         ArrayList<String> step_desc = loadBundle.getStringArrayList("step_desc_list");
         ArrayList<String> step_duration = loadBundle.getStringArrayList("step_duration_list");
 
+        Log.d("zxc", "size " + step_desc.size());
+
         assert loadBundle != null;
         confirmAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 step_desc.add(addDesc.getText().toString().trim());
+
+                Log.d("zxc", "size " + step_desc.size());
                 step_duration.add(addDuration.getText().toString().trim());
                 bundle.putStringArrayList("step_desc_list", step_desc);
                 bundle.putStringArrayList("step_duration_list", step_duration);

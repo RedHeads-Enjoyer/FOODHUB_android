@@ -79,19 +79,21 @@
                 app:layout_constraintStart_toEndOf="@+id/addRecipeName"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/addRecipeNewStep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_marginStart="264dp"
-                android:layout_marginTop="556dp"
-                android:text="Новый шаг"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/addRecipeNewStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="544dp"
+        android:layout_marginBottom="19dp"
+        android:text="Новый шаг"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintStart_toEndOf="@+id/scrollView2" />
 
 
 </RelativeLayout>
