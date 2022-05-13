@@ -40,7 +40,9 @@ public class AddRecipeFragmentLayout extends Fragment {
     private AddRecipeAdapter addRecipeAdapter;
 
     ArrayList<String> step_desc = new ArrayList<String>();
-    ArrayList<String> step_duration = new ArrayList<String>();
+    ArrayList<Integer> step_sec= new ArrayList<Integer>();
+    ArrayList<Integer> step_min= new ArrayList<Integer>();
+    ArrayList<Integer> step_hour= new ArrayList<Integer>();
 
     ArrayList<Step> steps = new ArrayList<Step>();
 
@@ -75,14 +77,18 @@ public class AddRecipeFragmentLayout extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle = this.getArguments();
-        if (bundle.getStringArrayList("step_duration_list") != null) {
+        if (bundle.getStringArrayList("step_desc_list") != null) {
             name       .setText(bundle.getString("recipe_name"));
             description.setText(bundle.getString("recipe_desc"));
-            step_duration = bundle.getStringArrayList("step_duration_list");
+
+            step_min  = bundle.getIntegerArrayList("step_min_list");
+            step_sec  = bundle.getIntegerArrayList("step_sec_list");
+            step_hour = bundle.getIntegerArrayList("step_hour_list");
+
             step_desc     = bundle.getStringArrayList("step_desc_list");
-            if (step_duration != null) {
-                for (int i = 0; i < step_duration.size(); i++) {
-                    steps.add(new Step(step_desc.get(i), step_duration.get(i)));
+            if (step_desc != null) {
+                for (int i = 0; i < step_desc.size(); i++) {
+                    steps.add(new Step(step_desc.get(i), step_sec.get(i), step_min.get(i), step_hour.get(i)));
                 }
             }
         }
@@ -116,14 +122,21 @@ public class AddRecipeFragmentLayout extends Fragment {
 
 
                 step_desc.clear();
-                step_duration.clear();
+                step_min .clear();
+                step_hour.clear();
+                step_sec .clear();
+
                 for (int i = 0; i < steps.size(); i++) {
                     step_desc.add(steps.get(i).getDesc());
-                    step_duration.add(steps.get(i).getDuration());
+                    step_sec.add(steps.get(i).getSec());
+                    step_min.add(steps.get(i).getMin());
+                    step_hour.add(steps.get(i).getHour());
                 }
 
                 addStepBundle.putStringArrayList("step_desc_list", step_desc);
-                addStepBundle.putStringArrayList("step_duration_list", step_duration);
+                addStepBundle.putIntegerArrayList("step_sec_list", step_sec);
+                addStepBundle.putIntegerArrayList("step_min_list", step_min);
+                addStepBundle.putIntegerArrayList("step_hour_list", step_hour);
 
                 Fragment ans = new add_new_step();
                 ans.setArguments(addStepBundle);

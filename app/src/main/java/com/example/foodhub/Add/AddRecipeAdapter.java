@@ -1,14 +1,17 @@
 package com.example.foodhub.Add;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,7 +43,7 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
     public void onBindViewHolder(@NonNull AddRecipeAdapter.ViewHolder holder, int position) {
         Step state = steps.get(position);
         holder.descView.setText(state.getDesc());
-        holder.durationView.setText(state.getDuration());
+        holder.durationView.setText(state.getHour().toString() + ":" + state.getMin().toString() + " " + state.getSec().toString());
         holder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,14 +54,17 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventFragment eventFragment = EventFragment.newInstance();
-                Toast.makeText(inflater.getContext(), Integer.toString(holder.getAdapterPosition()), Toast.LENGTH_LONG).show();
-                Fragment addrecipe = new AddRecipeFragmentLayout();
-                FragmentManager fragmentManager = inflater.getContext().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                EditText editText;
+                editText = view.findViewById(R.id.addRecipeDesc);
+                String s;
+                s = editText.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("zxc", s);
+                Fragment myFragment = new AddRecipeEditStep();
+                myFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.addNewRecipeHostLayout, myFragment).addToBackStack(null).commit();
             }
         });
     }

@@ -4,11 +4,15 @@ import java.io.Serializable;
 
 public class Step implements Serializable {
     private String desc;
-    private String duration;
+    private Integer sec;
+    private Integer min;
+    private Integer hour;
 
-    public Step(String desc, String duration) {
+    public Step(String desc, Integer sec, Integer min, Integer hour) {
         this.desc = desc;
-        this.duration = duration;
+        this.sec = sec;
+        this.min = min;
+        this.hour = hour;
     }
 
     public String getDesc() {
@@ -19,11 +23,27 @@ public class Step implements Serializable {
         this.desc = desc;
     }
 
-    public String getDuration() {
-        return duration;
+    public Integer getSec() {
+        return sec;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public void setSec(Integer sec) {
+        this.sec = sec;
+    }
+
+    public Integer getMin() {
+        return min;
+    }
+
+    public void setMin(Integer min) {
+        this.min = min;
+    }
+
+    public Integer getHour() {
+        return hour;
+    }
+
+    public void setHour(Integer hour) {
+        this.hour = hour;
     }
 }
