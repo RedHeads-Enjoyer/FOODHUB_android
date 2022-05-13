@@ -1,4 +1,4 @@
-package com.example.foodhub.Add;
+package com.example.foodhub;
 
 import java.io.Serializable;
 
