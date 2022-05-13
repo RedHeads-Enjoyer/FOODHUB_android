@@ -1,14 +1,38 @@
 package com.example.foodhub;
 
+import android.net.Uri;
+
 import com.example.foodhub.Add.Step;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Recipe {
-    private String name, description;
-    private ArrayList<Integer> rating;
-    private Date date = new Date();
+    private String name, description, userID;
+    private ArrayList<Step> steps;
+    private Integer like, dislike, views;
+    private Uri image;
+
+    public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, Uri image) {
+        this.name = name;
+        this.description = description;
+        this.userID = userID;
+        this.steps = steps;
+        this.like = like;
+        this.dislike = dislike;
+        this.views = views;
+        this.image = image;
+    }
+
+    public Recipe() {}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDescription() {
         return description;
@@ -16,6 +40,14 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public ArrayList<Step> getSteps() {
@@ -26,39 +58,35 @@ public class Recipe {
         this.steps = steps;
     }
 
-    private ArrayList<Step> steps = new ArrayList<>();
-
-    public Recipe() {
-
+    public Integer getLike() {
+        return like;
     }
 
-    public String getName() {
-        return name;
+    public void setLike(Integer like) {
+        this.like = like;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Integer getDislike() {
+        return dislike;
     }
 
-    public ArrayList<Integer> getRating() {
-        return rating;
+    public void setDislike(Integer dislike) {
+        this.dislike = dislike;
     }
 
-    public void setRating(ArrayList<Integer> rating) {
-        this.rating = rating;
+    public Integer getViews() {
+        return views;
     }
 
-    public Date getDate() {
-        return date;
+    public void setViews(Integer views) {
+        this.views = views;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public Uri getImage() {
+        return image;
     }
 
-    public Recipe(String name, ArrayList<Integer> rating, Date date) {
-        this.name = name;
-        this.rating = rating;
-        this.date = date;
+    public void setImage(Uri image) {
+        this.image = image;
     }
 }

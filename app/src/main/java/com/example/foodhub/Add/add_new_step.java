@@ -24,6 +24,8 @@ public class add_new_step extends Fragment {
     Button confirmAdd;
     NumberPicker secPicker, minPicker, hourPicker;
 
+    private String imageUri;
+
 
     public add_new_step() {
         // Required empty public constructor
@@ -60,7 +62,7 @@ public class add_new_step extends Fragment {
 
         Bundle finalLoadBundle = loadBundle;
 
-
+        imageUri = loadBundle.getString("main_image_uri");
         ArrayList<String> step_desc = loadBundle.getStringArrayList("step_desc_list");
         ArrayList<Integer> step_sec = loadBundle.getIntegerArrayList("step_sec_list");
         ArrayList<Integer> step_min = loadBundle.getIntegerArrayList("step_min_list");
@@ -86,6 +88,8 @@ public class add_new_step extends Fragment {
 
                 bundle.putString("recipe_name", finalLoadBundle.getString("recipe_name"));
                 bundle.putString("recipe_desc", finalLoadBundle.getString("recipe_desc"));
+
+                bundle.putString("main_image_uri", imageUri);
 
                 Fragment addrecipe = new AddRecipeFragmentLayout();
                 addrecipe.setArguments(bundle);

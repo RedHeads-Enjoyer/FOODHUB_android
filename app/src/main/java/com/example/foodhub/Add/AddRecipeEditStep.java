@@ -26,13 +26,9 @@ public class AddRecipeEditStep extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_recipe_edit_step, container, false);
-        String s;
-        Bundle bundle = new Bundle();
-        bundle = this.getArguments();
-        s = bundle.getString("zxc");
         TextView textView;
         textView = view.findViewById(R.id.editStepDesc);
-        textView.setText(s);
+        textView.setText("asd");
         return view;
     }
 }

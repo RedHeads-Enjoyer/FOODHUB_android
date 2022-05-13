@@ -56,14 +56,7 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
             public void onClick(View view) {
 
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                EditText editText;
-                editText = view.findViewById(R.id.addRecipeDesc);
-                String s;
-                s = editText.getText().toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("zxc", s);
                 Fragment myFragment = new AddRecipeEditStep();
-                myFragment.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.addNewRecipeHostLayout, myFragment).addToBackStack(null).commit();
             }
         });

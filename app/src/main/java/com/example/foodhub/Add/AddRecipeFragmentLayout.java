@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,9 @@ public class AddRecipeFragmentLayout extends Fragment {
     private ImageView picture;
 
     private AddRecipeAdapter addRecipeAdapter;
+    private Uri imageUri;
+
+    private String mainImageUri;
 
     ArrayList<String> step_desc = new ArrayList<String>();
     ArrayList<Integer> step_sec= new ArrayList<Integer>();
@@ -59,6 +65,7 @@ public class AddRecipeFragmentLayout extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
+            imageUri = selectedImage;
             picture.setImageURI(selectedImage);
         }
     }
@@ -85,7 +92,12 @@ public class AddRecipeFragmentLayout extends Fragment {
             step_sec  = bundle.getIntegerArrayList("step_sec_list");
             step_hour = bundle.getIntegerArrayList("step_hour_list");
 
-            step_desc     = bundle.getStringArrayList("step_desc_list");
+            imageUri = Uri.parse(bundle.getString("main_image_uri"));
+
+            picture.setImageURI(imageUri);
+
+
+            step_desc = bundle.getStringArrayList("step_desc_list");
             if (step_desc != null) {
                 for (int i = 0; i < step_desc.size(); i++) {
                     steps.add(new Step(step_desc.get(i), step_sec.get(i), step_min.get(i), step_hour.get(i)));
@@ -97,8 +109,7 @@ public class AddRecipeFragmentLayout extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                sendRecipe();
-                Toast.makeText(getActivity(), "S", Toast.LENGTH_LONG).show();
+                sendRecipe();
             }
         });
 
@@ -119,6 +130,7 @@ public class AddRecipeFragmentLayout extends Fragment {
 
                 addStepBundle.putString("recipe_name", name.getText().toString().trim());
                 addStepBundle.putString("recipe_desc", description.getText().toString().trim());
+                addStepBundle.putString("main_image_uri", imageUri.toString());
 
 
                 step_desc.clear();
@@ -145,31 +157,6 @@ public class AddRecipeFragmentLayout extends Fragment {
                 fragmentTransaction.replace(R.id.addNewRecipeHostLayout, ans);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
-
-
-
-//                steps.add(new Step("a", "1"));
-//                addRecipeAdapter.notifyItemInserted(steps.size() - 1);
-
-
-
-//                Recipe r = new Recipe();
-//                r.setName("newrec");
-//                FirebaseDatabase.getInstance().getReference("Rec").push().setValue(r);
-//                FirebaseDatabase.getInstance().getReference("Rec")
-//                        .setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()) {
-//                            Toast.makeText(getActivity(), "S", Toast.LENGTH_LONG).show();
-//                        }
-//                        else {
-//                            Toast.makeText(getActivity(), ":(", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
-
             }
         });
 
@@ -190,5 +177,14 @@ public class AddRecipeFragmentLayout extends Fragment {
         r.setName(name.getText().toString().trim());
         r.setDescription(description.getText().toString().trim());
         r.setSteps(steps);
+        r.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        r.setDislike(0);
+        r.setLike(0);
+        r.setViews(0);
+        Log.d("zxc", imageUri.toString());
+        r.setImage(Uri.parse(imageUri.toString()));
+
+        FirebaseDatabase.getInstance().getReference("Recipe").push().setValue(r);
+
     }
 }
