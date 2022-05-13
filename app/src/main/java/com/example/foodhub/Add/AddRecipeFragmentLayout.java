@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,8 +22,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.foodhub.MainActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,7 +41,7 @@ public class AddRecipeFragmentLayout extends Fragment {
 
     private EditText name, description;
     private static final int RESULT_OK = 3;
-    private Button gallery, send;
+    private Button gallery, send, addStep;
     private ImageView picture;
 
     private AddRecipeAdapter addRecipeAdapter;
@@ -66,6 +70,7 @@ public class AddRecipeFragmentLayout extends Fragment {
         if (requestCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             imageUri = selectedImage;
+            gallery.setError(null);
             picture.setImageURI(selectedImage);
         }
     }
@@ -92,7 +97,10 @@ public class AddRecipeFragmentLayout extends Fragment {
             step_sec  = bundle.getIntegerArrayList("step_sec_list");
             step_hour = bundle.getIntegerArrayList("step_hour_list");
 
-            imageUri = Uri.parse(bundle.getString("main_image_uri"));
+
+            if (bundle.getString("main_image_uri") != null) {
+                imageUri = Uri.parse(bundle.getString("main_image_uri"));
+            }
 
             picture.setImageURI(imageUri);
 
@@ -121,7 +129,7 @@ public class AddRecipeFragmentLayout extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(addRecipeAdapter);
 
-        Button addStep = (Button) view.findViewById(R.id.addRecipeNewStep);
+        addStep = (Button) view.findViewById(R.id.addRecipeNewStep);
         addStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +138,9 @@ public class AddRecipeFragmentLayout extends Fragment {
 
                 addStepBundle.putString("recipe_name", name.getText().toString().trim());
                 addStepBundle.putString("recipe_desc", description.getText().toString().trim());
-                addStepBundle.putString("main_image_uri", imageUri.toString());
+                if (imageUri != null) {
+                    addStepBundle.putString("main_image_uri", imageUri.toString());
+                }
 
 
                 step_desc.clear();
@@ -173,6 +183,30 @@ public class AddRecipeFragmentLayout extends Fragment {
     }
 
     private void sendRecipe() {
+        if (name.getText().toString().trim().length() <2) {
+            name.setError("Минимальная длина название 2 символа");
+            name.requestFocus();
+            return;
+        }
+
+        if (description.getText().toString().trim().length() == 0) {
+            description.setError("Это поле не должно быть пустым");
+            description.requestFocus();
+            return;
+        }
+
+        if (steps.size() < 1) {
+            Toast.makeText(getActivity(), "В рецепте должны быть этапы", Toast.LENGTH_LONG).show();
+            addStep.setError("");
+            return;
+        }
+
+        if (imageUri == null) {
+            Toast.makeText(getActivity(), "Укажите фотографию", Toast.LENGTH_LONG).show();
+            gallery.setError("");
+            return;
+        }
+
         Recipe r = new Recipe();
         r.setName(name.getText().toString().trim());
         r.setDescription(description.getText().toString().trim());
@@ -181,8 +215,9 @@ public class AddRecipeFragmentLayout extends Fragment {
         r.setDislike(0);
         r.setLike(0);
         r.setViews(0);
-        Log.d("zxc", imageUri.toString());
-        r.setImage(Uri.parse(imageUri.toString()));
+
+//        Log.d("zxc", imageUri.toString());
+//        r.setImage(Uri.parse(imageUri.toString()));
 
         FirebaseDatabase.getInstance().getReference("Recipe").push().setValue(r);
 

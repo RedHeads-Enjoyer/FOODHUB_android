@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class add_new_step extends Fragment {
     EditText addDesc, addDuration;
-    Button confirmAdd;
+    Button confirmAdd, canselAdd;
     NumberPicker secPicker, minPicker, hourPicker;
 
     private String imageUri;
@@ -47,6 +47,7 @@ public class add_new_step extends Fragment {
 
         addDesc     = view.findViewById(R.id.editAddDesc);
         confirmAdd  = view.findViewById(R.id.confirmAddingStep);
+        canselAdd   = view.findViewById(R.id.canselAddingStep);
         secPicker   = view.findViewById(R.id.addStepSecPicker);
         minPicker   = view.findViewById(R.id.addStepMinPicker);
         hourPicker  = view.findViewById(R.id.addStepHourPicker);
@@ -73,6 +74,12 @@ public class add_new_step extends Fragment {
             @Override
             public void onClick(View view) {
 
+                if (addDesc.getText().toString().trim().length() == 0) {
+                    addDesc.setError("Это поле не должно быть пустым");
+                    addDesc.requestFocus();
+                    return;
+                }
+
                 step_desc.add(addDesc.getText().toString().trim());
                 step_sec.add(secPicker.getValue());
                 step_min.add(minPicker.getValue());
@@ -81,6 +88,29 @@ public class add_new_step extends Fragment {
 
 
 
+                bundle.putStringArrayList("step_desc_list", step_desc);
+                bundle.putIntegerArrayList("step_min_list", step_min);
+                bundle.putIntegerArrayList("step_sec_list", step_sec);
+                bundle.putIntegerArrayList("step_hour_list", step_hour);
+
+                bundle.putString("recipe_name", finalLoadBundle.getString("recipe_name"));
+                bundle.putString("recipe_desc", finalLoadBundle.getString("recipe_desc"));
+
+                bundle.putString("main_image_uri", imageUri);
+
+                Fragment addrecipe = new AddRecipeFragmentLayout();
+                addrecipe.setArguments(bundle);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        canselAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 bundle.putStringArrayList("step_desc_list", step_desc);
                 bundle.putIntegerArrayList("step_min_list", step_min);
                 bundle.putIntegerArrayList("step_sec_list", step_sec);

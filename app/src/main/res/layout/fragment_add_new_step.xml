@@ -57,15 +57,15 @@
             android:layout_marginTop="44dp"
             android:width="100dp"
             android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@+id/confirmAddingStep"
+            app:layout_constraintStart_toEndOf="@+id/addStepMinPicker"
             app:layout_constraintTop_toBottomOf="@+id/editAddDesc" />
 
         <Button
             android:id="@+id/confirmAddingStep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="144dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="236dp"
+            android:layout_marginTop="36dp"
             android:text="Добавить"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addStepMinPicker" />
@@ -81,6 +81,16 @@
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <Button
+            android:id="@+id/canselAddingStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="89dp"
+            android:layout_marginTop="38dp"
+            android:text="Отмена"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addStepHourPicker" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
