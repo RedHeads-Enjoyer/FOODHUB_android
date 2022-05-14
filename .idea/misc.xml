@@ -9,6 +9,10 @@
         <entry key="..\:/FOODHUB/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/FOODHUB/app/src/main/res/layout/activity_profile.xml" value="0.67" />
         <entry key="..\:/FOODHUB/app/src/main/res/layout/activity_register_user.xml" value="0.371875" />
+        <entry key="..\:/FOODHUB/app/src/main/res/layout/fragment_add_recipe_layout.xml" value="0.33" />
+        <entry key="..\:/FOODHUB/app/src/main/res/layout/fragment_recipe_search_element.xml" value="0.33" />
+        <entry key="..\:/FOODHUB/app/src/main/res/layout/fragment_search_recipe.xml" value="0.35625" />
+        <entry key="..\:/FOODHUB/app/src/main/res/layout/fragment_user_profile.xml" value="0.24114583333333334" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_add_new.xml" value="0.1" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_add_new_step.xml" value="0.2890625" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/activity_add_recipe.xml" value="0.24728260869565216" />

@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/SearchRecipeImg"
+            android:id="@+id/searchRecipeImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -21,13 +21,35 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/SearchRecipeName"
-            android:layout_width="186dp"
-            android:layout_height="33dp"
+            android:id="@+id/searchRecipeName"
+            android:layout_width="201dp"
+            android:layout_height="48dp"
             android:layout_marginStart="17dp"
             android:layout_marginTop="16dp"
             android:text="Название рецепта"
-            app:layout_constraintStart_toEndOf="@+id/SearchRecipeImg"
+            app:layout_constraintStart_toEndOf="@+id/searchRecipeImg"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/searchRecipeRating"
+            style="@android:attr/ratingBarStyleSmall"
+            android:layout_width="233dp"
+            android:layout_height="47dp"
+            android:isIndicator="true"
+            android:max="5"
+            android:scaleX=".7"
+            android:scaleY=".7"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            tools:layout_editor_absoluteX="181dp"
+            tools:layout_editor_absoluteY="118dp" />
+
+        <TextView
+            android:id="@+id/searchRecipeAuthor"
+            android:layout_width="201dp"
+            android:layout_height="54dp"
+            android:text="Имя автора"
+            tools:layout_editor_absoluteX="182dp"
+            tools:layout_editor_absoluteY="64dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
