@@ -1,6 +1,7 @@
 package com.example.foodhub.Add;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.R;
@@ -50,10 +53,23 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment myFragment = new AddRecipeEditStep();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.addNewRecipeHostLayout, myFragment).addToBackStack(null).commit();
+//                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+//                Fragment myFragment = new AddRecipeEditStep();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("recipe_name", state.getRecipeName());
+//                bundle.putString("recipe_desc", state.getRecipeDesc());
+//                bundle.putString("recipe_img", state.getRecipeImg());
+//                bundle.putString("step_desc", state.getDesc());
+//                bundle.putInt("step_min", state.getMin());
+//                bundle.putInt("step_sec", state.getSec());
+//                bundle.putInt("step_hour", state.getHour());
+//                Fragment ares = new AddRecipeEditStep();
+//                ares.setArguments(bundle);
+//                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.addNewRecipeHostLayout, ares);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
     }

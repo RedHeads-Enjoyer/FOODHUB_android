@@ -1,5 +1,6 @@
 package com.example.foodhub.Search;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,8 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
     private final LayoutInflater inflater;
     private final List<Recipe> recipes;
 
-    public SearchRecipeAdapter(LayoutInflater inflater, List<Recipe> recipes) {
-        this.inflater = inflater;
+    public SearchRecipeAdapter(Context context, List<Recipe> recipes) {
+        this.inflater = LayoutInflater.from(context);
         this.recipes = recipes;
     }
 
@@ -37,7 +38,6 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         Recipe recipe = recipes.get(position);
         holder.authorName.setText("Author");
         holder.recipeName.setText(recipe.getName());
-
     }
 
     @Override

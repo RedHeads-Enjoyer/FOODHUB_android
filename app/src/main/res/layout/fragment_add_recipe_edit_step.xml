@@ -1,15 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Add.AddRecipeEditStep">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/editStepDesc"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <NumberPicker
+            android:id="@+id/addStepEditMinPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="54dp"
+            android:width="100dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/addStepEditHourPicker"
+            app:layout_constraintTop_toBottomOf="@+id/addStepEditText" />
+
+        <NumberPicker
+            android:id="@+id/addStepEditHourPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="86dp"
+            android:layout_marginTop="54dp"
+            android:width="100dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addStepEditText" />
+
+        <NumberPicker
+            android:id="@+id/addStepEditSecPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="54dp"
+            android:width="100dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/addStepEditMinPicker"
+            app:layout_constraintTop_toBottomOf="@+id/addStepEditText" />
+
+        <Button
+            android:id="@+id/addStepEditCansel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="77dp"
+            android:text="Отмена"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addStepEditHourPicker" />
+
+        <Button
+            android:id="@+id/addStepEditConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="77dp"
+            android:text="применить"
+            app:layout_constraintStart_toEndOf="@+id/addStepEditCansel"
+            app:layout_constraintTop_toBottomOf="@+id/addStepEditSecPicker" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="48dp"
+            android:text="Редактирование этапа"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/addStepEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="67dp"
+            android:ems="10"
+            android:hint="Описание этапа"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

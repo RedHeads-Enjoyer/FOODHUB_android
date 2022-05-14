@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,10 +24,22 @@ import android.widget.Toast;
 import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
 import com.example.foodhub.Step;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
 public class AddRecipeFragmentLayout extends Fragment {
 
@@ -43,6 +56,8 @@ public class AddRecipeFragmentLayout extends Fragment {
     private Uri imageUri;
 
     private String mainImageUri;
+
+    private StorageReference storageReference;
 
     ArrayList<String> step_desc = new ArrayList<String>();
     ArrayList<Integer> step_sec= new ArrayList<Integer>();
@@ -103,7 +118,8 @@ public class AddRecipeFragmentLayout extends Fragment {
             step_desc = bundle.getStringArrayList("step_desc_list");
             if (step_desc != null) {
                 for (int i = 0; i < step_desc.size(); i++) {
-                    steps.add(new Step(step_desc.get(i), step_sec.get(i), step_min.get(i), step_hour.get(i)));
+                    Step step = new Step(step_desc.get(i), step_sec.get(i), step_min.get(i), step_hour.get(i));
+                    steps.add(step);
                 }
             }
         }
@@ -203,6 +219,16 @@ public class AddRecipeFragmentLayout extends Fragment {
         }
 
         Recipe r = new Recipe();
+        String filename = UUID.randomUUID().toString();
+        storageReference = FirebaseStorage.getInstance().getReference(filename);
+        storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                 Toast.makeText(getContext(),taskSnapshot.getStorage().getDownloadUrl().toString(), Toast.LENGTH_LONG ).show(); ;
+            }
+        });
+
+
         r.setName(name.getText().toString().trim());
         r.setDescription(description.getText().toString().trim());
         r.setSteps(steps);
@@ -210,11 +236,6 @@ public class AddRecipeFragmentLayout extends Fragment {
         r.setDislike(0);
         r.setLike(0);
         r.setViews(0);
-
-//        Log.d("zxc", imageUri.toString());
-//        r.setImage(Uri.parse(imageUri.toString()));
-
         FirebaseDatabase.getInstance().getReference("Recipe").push().setValue(r);
-
     }
 }

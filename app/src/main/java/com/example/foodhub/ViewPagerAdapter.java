@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.foodhub.Add.AddRecipeFragment;
+import com.example.foodhub.Profile.UserProfileFragment;
 import com.example.foodhub.Search.SearchRecipeFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {

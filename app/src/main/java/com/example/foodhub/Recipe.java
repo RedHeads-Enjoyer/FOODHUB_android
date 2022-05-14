@@ -8,9 +8,9 @@ public class Recipe {
     private String name, description, userID;
     private ArrayList<Step> steps;
     private Integer like, dislike, views;
-    private Uri image;
+    private String image;
 
-    public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, Uri image) {
+    public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, String image) {
         this.name = name;
         this.description = description;
         this.userID = userID;
@@ -79,11 +79,11 @@ public class Recipe {
         this.views = views;
     }
 
-    public Uri getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
