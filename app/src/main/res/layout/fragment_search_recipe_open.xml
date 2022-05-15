@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Search.SearchRecipeOpen">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/SearchRecipeOpen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/OpenRecipeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="176dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/OpenRecipeImage"
+            android:layout_width="243dp"
+            android:layout_height="181dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/gal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="7dp"
+            android:src="@drawable/dislike"
+            app:layout_constraintStart_toEndOf="@+id/OpenRecipeImage"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="7dp"
+            android:src="@drawable/like"
+            app:layout_constraintStart_toEndOf="@+id/OpenRecipeImage"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="40dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="82dp"
+            android:src="@drawable/view"
+            app:layout_constraintStart_toEndOf="@+id/OpenRecipeImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/OpenRecipeViewCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="89dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/OpenRecipeLikeCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="24dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/OpenRecipeViewCounter" />
+
+        <TextView
+            android:id="@+id/OpenRecipeDislikeCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="18dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/OpenRecipeLikeCounter" />
+
+        <TextView
+            android:id="@+id/OpenRecipeDesc"
+            android:layout_width="386dp"
+            android:layout_height="149dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/OpenRecipeImage" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/OpenRecipeRecyclerView"
+            android:layout_width="385dp"
+            android:layout_height="275dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/OpenRecipeDesc" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
