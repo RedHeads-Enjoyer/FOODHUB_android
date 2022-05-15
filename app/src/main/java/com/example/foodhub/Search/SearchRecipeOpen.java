@@ -66,7 +66,7 @@ public class SearchRecipeOpen extends Fragment {
         ViewsCounter.setText(Integer.toString(bundle.getInt("recipe_views")));
         LikeCounter.setText(Integer.toString(bundle.getInt("recipe_likes")));
         DislikeCounter.setText(Integer.toString(bundle.getInt("recipe_dislike")));
-        Username.setText("username");
+        Username.setText(bundle.getString("username"));
 
         sec = bundle.getIntegerArrayList("step_sec");
         min = bundle.getIntegerArrayList("step_min");

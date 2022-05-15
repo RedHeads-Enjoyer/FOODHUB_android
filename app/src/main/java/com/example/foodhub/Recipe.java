@@ -10,6 +10,16 @@ public class Recipe {
     private Integer like, dislike, views;
     private String image;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String username;
+
     public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, String image) {
         this.name = name;
         this.description = description;

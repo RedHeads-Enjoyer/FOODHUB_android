@@ -3,6 +3,7 @@ package com.example.foodhub.Search;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.os.IResultReceiver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                 User userProfile = snapshot.getValue(User.class);
                 Picasso.get().load(recipe.getImage()).resize(350, 350).placeholder(R.drawable.gal).centerCrop().into(holder.recipeImg);
                 holder.authorName.setText(userProfile.getUsername());
+                recipe.setUsername(userProfile.getUsername());
                 holder.recipeName.setText(recipe.getName());
                 holder.viewsCounter.setText(recipe.getViews().toString());
                 holder.likeDislikeCounter.setText(recipe.getLike() + "/" + recipe.getDislike());
@@ -116,7 +118,7 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                 bundle.putInt("recipe_likes", recipe.getLike());
                 bundle.putInt("recipe_dislike", recipe.getDislike());
                 bundle.putString("recipe_img", recipe.getImage());
-                bundle.putString("username", recipe.getImage());
+                bundle.putString("username", recipe.getUsername());
 
                 Fragment sro = new SearchRecipeOpen();
                 sro.setArguments(bundle);

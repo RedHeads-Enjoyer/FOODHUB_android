@@ -1,13 +1,18 @@
 package com.example.foodhub.Search;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,11 +38,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeStepsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private final List<Step> steps;
+    Step step;
+    CountDownTimer countDownTimer;
+    boolean isTimerRunning = false;
+    long START_TIME;
+    long timerTimeLeft;
 
     public OpenRecipeStepsAdapter(Context context, List<Step> steps) {
         this.inflater = LayoutInflater.from(context);
@@ -53,8 +64,84 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Step step = steps.get(position);
+        step = steps.get(position);
         holder.stepDesc.setText(step.getDesc());
+
+        holder.stepDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(inflater.getContext(), step.getSec().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        if (step.getHour() != 0 || step.getMin() !=0 || step.getSec() !=0) {
+            START_TIME = step.getHour() * 3600 * 1000 + step.getMin() * 60 * 1000 + step.getSec() * 1000;
+            timerTimeLeft = START_TIME;
+
+            holder.timeLeft.setVisibility(View.VISIBLE);
+            holder.timerStartStop.setVisibility(View.VISIBLE);
+            holder.timerReset.setVisibility(View.INVISIBLE);
+
+            holder.timerStartStop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isTimerRunning) {
+                        countDownTimer.cancel();
+                        isTimerRunning = false;
+                        holder.timerStartStop.setText("start");
+                        holder.timerReset.setVisibility(View.VISIBLE);
+                    }else {
+                        countDownTimer = new CountDownTimer(timerTimeLeft, 1000) {
+                            @Override
+                            public void onTick(long l) {
+                                timerTimeLeft = l;
+                                int hours = (int) timerTimeLeft / 1000 / 3600;
+                                int minitues = (int) timerTimeLeft / 1000 / 60 % 60;
+                                int sec = (int) timerTimeLeft / 1000 % 60;
+                                String timeLeftString = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours,minitues, sec);
+                                holder.timeLeft.setText(timeLeftString);
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                isTimerRunning = false;
+                                holder.timerStartStop.setText("start");
+                                holder.timerStartStop.setVisibility(View.INVISIBLE);
+                                holder.timerReset.setVisibility(View.VISIBLE);
+//                                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.sound);
+//                                mediaPlayer.start();
+//                                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//                                vibrator.vibrate(2000);
+
+
+                            }
+                        }.start();
+                        isTimerRunning = true;
+                        holder.timerStartStop.setText("pause");
+                        holder.timerReset.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+
+            holder.timerReset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    timerTimeLeft = START_TIME;
+                    int hours = (int) timerTimeLeft / 1000 / 3600;
+                    int minitues = (int) timerTimeLeft / 1000 / 60 % 60;
+                    int sec = (int) timerTimeLeft / 1000 % 60;
+                    String timeLeftString = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours,minitues, sec);
+                    holder.timeLeft.setText(timeLeftString);
+                    holder.timerReset.setVisibility(View.INVISIBLE);
+                    holder.timerStartStop.setVisibility(View.VISIBLE);
+                }
+            });
+            int hours = (int) timerTimeLeft / 1000 / 3600;
+            int minitues = (int) timerTimeLeft / 1000 / 60 % 60;
+            int sec = (int) timerTimeLeft / 1000 % 60;
+            String timeLeftString = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours,minitues, sec);
+            holder.timeLeft.setText(timeLeftString);
+        }
     }
 
     @Override
@@ -64,10 +151,15 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView stepDesc;
+        TextView stepDesc, timeLeft;
+        Button timerStartStop, timerReset;
         ViewHolder(View view){
             super(view);
             stepDesc = view.findViewById(R.id.openRecipeStepDesc);
+            timeLeft = view.findViewById(R.id.timerTimeLeft);
+            timerReset = view.findViewById(R.id.timerResetTimer);
+            timerStartStop = view.findViewById(R.id.timerStartTimer);
         }
     }
+
 }
