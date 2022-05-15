@@ -53,8 +53,8 @@
             android:id="@+id/imageView4"
             android:layout_width="40dp"
             android:layout_height="39dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="82dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="100dp"
             android:src="@drawable/view"
             app:layout_constraintStart_toEndOf="@+id/OpenRecipeImage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,8 +63,8 @@
             android:id="@+id/OpenRecipeViewCounter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="89dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="104dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
             app:layout_constraintTop_toTopOf="parent" />
@@ -107,5 +107,15 @@
             android:layout_marginTop="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/OpenRecipeDesc" />
+
+        <TextView
+            android:id="@+id/OpenRecipeUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="60dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/OpenRecipeImage"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
+import com.example.foodhub.Step;
 import com.example.foodhub.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapter.ViewHolder> {
@@ -62,6 +64,7 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(recipe.getUserID()).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
@@ -86,8 +89,35 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<Integer> sec = new ArrayList<>();
+                ArrayList<Integer> min = new ArrayList<>();
+                ArrayList<Integer> hour = new ArrayList<>();
+                ArrayList<String> stepDesc = new ArrayList<>();
+                ArrayList<Step> steps = new ArrayList<>();
+                steps = recipe.getSteps();
+
+                for (int i = 0; i < steps.size(); i++) {
+                    sec.add(steps.get(i).getSec());
+                    min.add(steps.get(i).getMin());
+                    hour.add(steps.get(i).getHour());
+                    stepDesc.add(steps.get(i).getDesc());
+                }
+
                 Bundle bundle = new Bundle();
+
+                bundle.putIntegerArrayList("step_sec", sec);
+                bundle.putIntegerArrayList("step_min", min);
+                bundle.putIntegerArrayList("step_hour", hour);
+                bundle.putStringArrayList("step_desc", stepDesc);
+
                 bundle.putString("recipe_name", recipe.getName());
+                bundle.putString("recipe_desc", recipe.getDescription());
+                bundle.putInt("recipe_views", recipe.getViews());
+                bundle.putInt("recipe_likes", recipe.getLike());
+                bundle.putInt("recipe_dislike", recipe.getDislike());
+                bundle.putString("recipe_img", recipe.getImage());
+                bundle.putString("username", recipe.getImage());
+
                 Fragment sro = new SearchRecipeOpen();
                 sro.setArguments(bundle);
                 AppCompatActivity appCompatActivity = (AppCompatActivity) view.getContext();
