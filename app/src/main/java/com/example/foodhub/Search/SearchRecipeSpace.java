@@ -32,7 +32,7 @@ public class SearchRecipeSpace extends Fragment {
     RecyclerView recyclerView;
     SearchRecipeAdapter searchRecipeAdapter;
     DatabaseReference databaseReference;
-    Recipe recipe = new Recipe();
+    private Recipe recipe = new Recipe();
 
     private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
@@ -81,13 +81,27 @@ public class SearchRecipeSpace extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Поиск...", Toast.LENGTH_LONG).show();
+                recipes.clear();
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        recipes.clear();
+                        searchRecipeAdapter.notifyDataSetChanged();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                            if (recipe.getName().startsWith(searchBar.getText().toString().trim())) recipes.add(recipe);
+                        }
+                        searchRecipeAdapter.notifyDataSetChanged();
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(),"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-
-
-        searchBar.setText("asd");
         return view;
     }
 }

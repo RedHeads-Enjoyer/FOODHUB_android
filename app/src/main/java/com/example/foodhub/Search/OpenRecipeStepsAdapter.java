@@ -49,6 +49,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
     boolean isTimerRunning = false;
     long START_TIME;
     long timerTimeLeft;
+    MediaPlayer mediaPlayer;
 
     public OpenRecipeStepsAdapter(Context context, List<Step> steps) {
         this.inflater = LayoutInflater.from(context);
@@ -108,10 +109,8 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
                                 holder.timerStartStop.setText("start");
                                 holder.timerStartStop.setVisibility(View.INVISIBLE);
                                 holder.timerReset.setVisibility(View.VISIBLE);
-//                                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.sound);
-//                                mediaPlayer.start();
-//                                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-//                                vibrator.vibrate(2000);
+                                mediaPlayer = MediaPlayer.create(inflater.getContext(), R.raw.timer);
+                                mediaPlayer.start();
 
 
                             }

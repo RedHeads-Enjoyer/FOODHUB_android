@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ProfileRecipeAdapter">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileAdapterLayoutClick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ProfileRecipeImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/icons8___150"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ProfileReciperName"
+            android:layout_width="200dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Название рецепта"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeImg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ProfileRecipeViews"
+            android:layout_width="43dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/view"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeImg"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileReciperName" />
+
+        <ImageView
+            android:id="@+id/ProfileRecipeLike"
+            android:layout_width="39dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/like"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeImg"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeViews" />
+
+        <ImageView
+            android:id="@+id/ProfileRecipeDislike"
+            android:layout_width="38dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/dislike"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeRetingBar"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeDeleteBtn" />
+
+        <ProgressBar
+            android:id="@+id/ProfileRecipeRetingBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="115dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeLike"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeViewsCount" />
+
+        <TextView
+            android:id="@+id/ProfileRecipeViewsCount"
+            android:layout_width="55dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeViews"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileReciperName" />
+
+        <TextView
+            android:id="@+id/ProfileRecipeLikeDislikeCounter"
+            android:layout_width="52dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/ProfileRecipeDislike"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeLike"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeRetingBar" />
+
+        <Button
+            android:id="@+id/ProfileRecipeDeleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="3dp"
+            android:text="Удалить"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeViewsCount"
+            app:layout_constraintTop_toBottomOf="@+id/ProfileReciperName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

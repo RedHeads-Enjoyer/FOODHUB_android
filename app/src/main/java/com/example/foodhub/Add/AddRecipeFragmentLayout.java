@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -230,7 +231,11 @@ public class AddRecipeFragmentLayout extends Fragment {
                 Task<Uri> downloadURL = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
+                        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("Recipe").push();
+
                         Recipe r = new Recipe();
+                        String key = databaseReference.getKey();
+                        r.setRecipeID(key);
                         r.setImage(task.getResult().toString());
                         r.setName(name.getText().toString().trim());
                         r.setDescription(description.getText().toString().trim());
@@ -239,7 +244,7 @@ public class AddRecipeFragmentLayout extends Fragment {
                         r.setDislike(0);
                         r.setLike(0);
                         r.setViews(0);
-                        FirebaseDatabase.getInstance().getReference("Recipe").push().setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        databaseReference.setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 name.setText("");

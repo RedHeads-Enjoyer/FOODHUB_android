@@ -1,17 +1,13 @@
 package com.example.foodhub.Search;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.os.IResultReceiver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +21,6 @@ import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
 import com.example.foodhub.Step;
 import com.example.foodhub.User;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,7 +74,9 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                     holder.likeDislikeBar.setSecondaryProgress(0);
                 }
                 else {
-                    holder.likeDislikeBar.setSecondaryProgress(recipe.getLike() / (recipe.getDislike() + recipe.getLike()));
+                    float l = (float) recipe.getLike();
+                    float dl = (float) recipe.getDislike();
+                    holder.likeDislikeBar.setSecondaryProgress((int) ((l / (l + dl)) * 100));
                 }
             }
 
@@ -91,6 +88,8 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).child("views").setValue(recipe.getViews() + 1);
                 ArrayList<Integer> sec = new ArrayList<>();
                 ArrayList<Integer> min = new ArrayList<>();
                 ArrayList<Integer> hour = new ArrayList<>();
@@ -112,6 +111,9 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                 bundle.putIntegerArrayList("step_hour", hour);
                 bundle.putStringArrayList("step_desc", stepDesc);
 
+                bundle.putInt("recipe_like", recipe.getLike());
+                bundle.putInt("recipe_dislike", recipe.getDislike());
+                bundle.putString("recipe_ID", recipe.getRecipeID());
                 bundle.putString("recipe_name", recipe.getName());
                 bundle.putString("recipe_desc", recipe.getDescription());
                 bundle.putInt("recipe_views", recipe.getViews());
@@ -145,13 +147,13 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         final ConstraintLayout layout;
         ViewHolder(View view){
             super(view);
-            recipeName = view.findViewById(R.id.searchRecipeName);
+            recipeName = view.findViewById(R.id.searchReciperName);
             authorName = view.findViewById(R.id.searchRecipeAuthor);
             recipeImg = view.findViewById(R.id.searchRecipeImg);
             likeDislikeBar = view.findViewById(R.id.SearchRecipeRetingBar);
-            viewsCounter = view.findViewById(R.id.SearchRecipeViewsCount);
+            viewsCounter = view.findViewById(R.id.searchRecipeViewsCount);
             likeDislikeCounter = view.findViewById(R.id.SearchRecipeLikeDislikeCounter);
-            layout = view.findViewById(R.id.SearchRecipeLayoutClick);
+            layout = view.findViewById(R.id.profileAdapterLayoutClick);
         }
     }
 }

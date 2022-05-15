@@ -8,7 +8,15 @@ public class Recipe {
     private String name, description, userID;
     private ArrayList<Step> steps;
     private Integer like, dislike, views;
-    private String image;
+    private String image, recipeID;
+
+    public String getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(String recipeID) {
+        this.recipeID = recipeID;
+    }
 
     public String getUsername() {
         return username;
