@@ -19,6 +19,7 @@ import com.example.foodhub.R;
 import com.example.foodhub.Step;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.ViewHolder>{
 
@@ -42,7 +43,13 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
     public void onBindViewHolder(@NonNull AddRecipeAdapter.ViewHolder holder, int position) {
         Step state = steps.get(position);
         holder.descView.setText(state.getDesc());
-        holder.durationView.setText(state.getHour().toString() + ":" + state.getMin().toString() + " " + state.getSec().toString());
+        String s = state.getSec().toString();
+        String m = state.getMin().toString();
+        String h = state.getHour().toString();
+        if (s.length() == 1) s = "0" + s;
+        if (m.length() == 1) m = "0" + m;
+        if (h.length() == 1) h = "0" + h;
+        holder.durationView.setText(h + ":" + m + ":" + s);
         holder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

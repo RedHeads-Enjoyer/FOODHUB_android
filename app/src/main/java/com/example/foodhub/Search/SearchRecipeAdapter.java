@@ -36,7 +36,7 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
-        holder.authorName.setText("Author");
+        holder.authorName.setText("ads");
         holder.recipeName.setText(recipe.getName());
     }
 

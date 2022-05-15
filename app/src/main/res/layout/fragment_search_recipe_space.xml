@@ -25,8 +25,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecipeRecyclerView"
-            android:layout_width="407dp"
-            android:layout_height="614dp"
+            android:layout_width="410dp"
+            android:layout_height="550dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
             app:layout_constraintStart_toStartOf="parent"

@@ -10,16 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FOODHUB">
         <activity
-            android:name=".Add.AddNewStep"
-            android:exported="false" />
-        <activity
             android:name=".FoodHubActivity"
             android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterUser"

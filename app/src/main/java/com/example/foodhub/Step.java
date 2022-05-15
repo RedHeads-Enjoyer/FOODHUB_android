@@ -15,6 +15,8 @@ public class Step implements Serializable {
         this.hour = hour;
     }
 
+    public Step() {}
+
     public String getDesc() {
         return desc;
     }

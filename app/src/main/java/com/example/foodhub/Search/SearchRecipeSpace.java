@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,33 +50,25 @@ public class SearchRecipeSpace extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_recipe_space, container, false);
+        recipes.clear();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipes.clear();
+                searchRecipeAdapter.notifyDataSetChanged();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                    recipes.add(recipe);
+                }
+                searchRecipeAdapter.notifyDataSetChanged();
+            }
 
-//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                    Recipe recipe = dataSnapshot.getValue(Recipe.class);
-//                    recipes.add(recipe);
-//                }
-//                searchRecipeAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Toast.makeText(getContext(),"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        recipe.setDescription("desc");
-        recipe.setName("name");
-        recipes.add(recipe);
-        recipes.add(recipe);
-        recipes.add(recipe);recipes.add(recipe);
-        recipes.add(recipe);
-        recipes.add(recipe);recipes.add(recipe);
-        recipes.add(recipe);
-        recipes.add(recipe);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(),"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
         searchBar = view.findViewById(R.id.searchBarText);
         searchBtn = view.findViewById(R.id.searchRecipeBtn);

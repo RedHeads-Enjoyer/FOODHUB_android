@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -218,24 +220,39 @@ public class AddRecipeFragmentLayout extends Fragment {
             return;
         }
 
-        Recipe r = new Recipe();
+
         String filename = UUID.randomUUID().toString();
+
         storageReference = FirebaseStorage.getInstance().getReference(filename);
         storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                 Toast.makeText(getContext(),taskSnapshot.getStorage().getDownloadUrl().toString(), Toast.LENGTH_LONG ).show(); ;
+                Task<Uri> downloadURL = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Recipe r = new Recipe();
+                        r.setImage(task.getResult().toString());
+                        r.setName(name.getText().toString().trim());
+                        r.setDescription(description.getText().toString().trim());
+                        r.setSteps(steps);
+                        r.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        r.setDislike(0);
+                        r.setLike(0);
+                        r.setViews(0);
+                        FirebaseDatabase.getInstance().getReference("Recipe").push().setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                name.setText("");
+                                description.setText("");
+                                steps.clear();
+//                                picture.setImageDrawable(R.drawable.gal);
+                                addRecipeAdapter.notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Рецепт успешно добавлен", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                });
             }
         });
-
-
-        r.setName(name.getText().toString().trim());
-        r.setDescription(description.getText().toString().trim());
-        r.setSteps(steps);
-        r.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        r.setDislike(0);
-        r.setLike(0);
-        r.setViews(0);
-        FirebaseDatabase.getInstance().getReference("Recipe").push().setValue(r);
     }
 }
