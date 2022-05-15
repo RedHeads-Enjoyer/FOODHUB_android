@@ -33,10 +33,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/UserProfileRecyclerView"
             android:layout_width="407dp"
-            android:layout_height="577dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:layout_marginTop="1dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

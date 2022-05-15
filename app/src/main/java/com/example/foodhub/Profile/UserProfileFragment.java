@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodhub.MainActivity;
@@ -52,6 +53,7 @@ public class UserProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         recipes.clear();
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,7 +75,6 @@ public class UserProfileFragment extends Fragment {
 
         logoutBtn = view.findViewById(R.id.UserProfileExit);
         recyclerView = view.findViewById(R.id.UserProfileRecyclerView);
-
         profileRecipeAdapter = new ProfileRecipeAdapter(getContext(), recipes);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
