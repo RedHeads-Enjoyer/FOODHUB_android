@@ -117,7 +117,7 @@ public class SearchRecipeOpen extends Fragment {
                 if (dl) {
                     dl = false;
                     Toast.makeText(inflater.getContext(), "Спасибо за вашу оценку", Toast.LENGTH_LONG).show();
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(likeC + 1);
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(dislikeC + 1);
                     LikeBtn.setVisibility(View.INVISIBLE);
                 }
             }
