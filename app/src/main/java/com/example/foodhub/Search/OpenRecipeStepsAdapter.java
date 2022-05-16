@@ -74,13 +74,6 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
         holder.stepDesc.setText(step.getDesc());
         holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1));
 
-        holder.stepDesc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(inflater.getContext(), step.getSec().toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
         if (step.getHour() != 0 || step.getMin() !=0 || step.getSec() !=0) {
             START_TIME = step.getHour() * 3600 * 1000 + step.getMin() * 60 * 1000 + step.getSec() * 1000;
             timerTimeLeft = START_TIME;

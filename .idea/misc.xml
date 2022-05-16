@@ -33,7 +33,7 @@
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_add_recipe_edit_step.xml" value="0.33" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_add_recipe_layout.xml" value="0.315625" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
-        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_profle_recipe_adapter.xml" value="0.6597510373443983" />
+        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_profle_recipe_adapter.xml" value="0.5337078651685393" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_recipe_search_element.xml" value="0.5" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_search_recipe.xml" value="0.34823091247672255" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/fragment_search_recipe_open.xml" value="0.48324514991181655" />
@@ -45,6 +45,8 @@
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/recycleview_tasks.xml" value="0.5" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/search.xml" value="0.33" />
         <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/layout/visibility-48px.xml" value="0.75" />
+        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2445" />
+        <entry key="..\:/Projects_IT/Java/MainFoodHyn/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2445" />
       </map>
     </option>
   </component>

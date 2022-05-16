@@ -10,15 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FOODHUB">
         <activity
+            android:screenOrientation="portrait"
             android:name=".FoodHubActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".RegisterUser"
             android:exported="false" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

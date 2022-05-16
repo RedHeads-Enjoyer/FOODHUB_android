@@ -2,6 +2,7 @@ package com.example.foodhub;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,17 +29,25 @@ public class ForgotPasswordActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        forgotPasswordEmail = (EditText) findViewById(R.id.forgotPasswordEmail);
+        forgotPasswordEmail = findViewById(R.id.forgotPasswordEmail);
         resetCansel = findViewById(R.id.resetPasswordCansel);
-        resetPassword = (Button) findViewById(R.id.resetPassword);
+        resetPassword = findViewById(R.id.resetPassword);
 
-        progressBar = (ProgressBar) findViewById(R.id.forgotPasswordProgressBar);
+        progressBar = findViewById(R.id.forgotPasswordProgressBar);
         progressBar.setVisibility(View.GONE);
 
         auth = FirebaseAuth.getInstance();
+
+        resetCansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ForgotPasswordActivity.this, MainActivity.class));
+            }
+        });
 
         resetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +71,6 @@ public class ForgotPasswordActivity extends AppCompatActivity  {
             forgotPasswordEmail.requestFocus();
             return;
         }
-
-        resetCansel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ForgotPasswordActivity.this, MainActivity.class));
-            }
-        });
 
         progressBar.setVisibility(View.VISIBLE);
         auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {

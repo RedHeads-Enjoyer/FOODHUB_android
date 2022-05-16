@@ -80,6 +80,7 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                 }
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
