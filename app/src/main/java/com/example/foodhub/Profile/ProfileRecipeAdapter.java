@@ -104,6 +104,8 @@ public class ProfileRecipeAdapter extends RecyclerView.Adapter<ProfileRecipeAdap
                         .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                StorageReference databaseReference = FirebaseStorage.getInstance().getReferenceFromUrl(recipe.getImage());
+                                databaseReference.delete();
                                 FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).removeValue();
                                 recipes.remove(holder.getAdapterPosition());
                                 notifyItemRemoved(holder.getAdapterPosition());
