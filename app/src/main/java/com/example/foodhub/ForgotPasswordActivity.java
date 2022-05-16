@@ -66,7 +66,7 @@ public class ForgotPasswordActivity extends AppCompatActivity  {
         resetCansel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), MainActivity.class));
+                startActivity(new Intent(ForgotPasswordActivity.this, MainActivity.class));
             }
         });
 
