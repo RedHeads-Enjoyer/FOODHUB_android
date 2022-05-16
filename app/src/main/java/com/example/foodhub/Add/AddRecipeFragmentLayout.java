@@ -1,5 +1,10 @@
 package com.example.foodhub.Add;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,15 +17,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.provider.MediaStore;
+import android.telephony.TelephonyCallback;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.foodhub.R;
@@ -147,6 +156,8 @@ public class AddRecipeFragmentLayout extends Fragment {
         addStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 Bundle addStepBundle = new Bundle();
 
 
@@ -179,11 +190,9 @@ public class AddRecipeFragmentLayout extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.addNewRecipeHostLayout, ans);
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
-
 
 
         gallery.setOnClickListener(new View.OnClickListener() {
@@ -197,67 +206,84 @@ public class AddRecipeFragmentLayout extends Fragment {
     }
 
     private void sendRecipe() {
-        if (name.getText().toString().trim().length() <2) {
-            name.setError("Минимальная длина название 2 символа");
-            name.requestFocus();
-            return;
-        }
-
-        if (description.getText().toString().trim().length() == 0) {
-            description.setError("Это поле не должно быть пустым");
-            description.requestFocus();
-            return;
-        }
-
-        if (steps.size() < 1) {
-            Toast.makeText(getActivity(), "В рецепте должны быть этапы", Toast.LENGTH_LONG).show();
-            addStep.setError("");
-            return;
-        }
-
-        if (imageUri == null) {
-            Toast.makeText(getActivity(), "Укажите фотографию", Toast.LENGTH_LONG).show();
-            gallery.setError("");
-            return;
-        }
-
-
-        String filename = UUID.randomUUID().toString();
-
-        storageReference = FirebaseStorage.getInstance().getReference(filename);
-        storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> downloadURL = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Отправка")
+                .setMessage("Вы уверены, что хотите отправить рецепт?")
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("Recipe").push();
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (name.getText().toString().trim().length() <2) {
+                            name.setError("Минимальная длина название 2 символа");
+                            name.requestFocus();
+                            return;
+                        }
 
-                        Recipe r = new Recipe();
-                        String key = databaseReference.getKey();
-                        r.setRecipeID(key);
-                        r.setImage(task.getResult().toString());
-                        r.setName(name.getText().toString().trim());
-                        r.setDescription(description.getText().toString().trim());
-                        r.setSteps(steps);
-                        r.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        r.setDislike(0);
-                        r.setLike(0);
-                        r.setViews(0);
-                        databaseReference.setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        if (description.getText().toString().trim().length() == 0) {
+                            description.setError("Это поле не должно быть пустым");
+                            description.requestFocus();
+                            return;
+                        }
+
+                        if (steps.size() < 1) {
+                            Toast.makeText(getActivity(), "В рецепте должны быть этапы", Toast.LENGTH_LONG).show();
+                            addStep.setError("");
+                            return;
+                        }
+
+                        if (imageUri == null) {
+                            Toast.makeText(getActivity(), "Укажите фотографию", Toast.LENGTH_LONG).show();
+                            gallery.setError("");
+                            return;
+                        }
+
+
+                        String filename = UUID.randomUUID().toString();
+                        ProgressDialog progressDialog = ProgressDialog.show(getContext(), "Пожалуйста подождите", "Рецепт отправляется", true);
+                        storageReference = FirebaseStorage.getInstance().getReference(filename);
+                        storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                name.setText("");
-                                description.setText("");
-                                steps.clear();
-//                                picture.setImageDrawable(R.drawable.gal);
-                                addRecipeAdapter.notifyDataSetChanged();
-                                Toast.makeText(getContext(), "Рецепт успешно добавлен", Toast.LENGTH_LONG).show();
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Task<Uri> downloadURL = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference("Recipe").push();
+
+                                        Recipe r = new Recipe();
+                                        String key = databaseReference.getKey();
+                                        r.setRecipeID(key);
+                                        r.setImage(task.getResult().toString());
+                                        r.setName(name.getText().toString().trim());
+                                        r.setDescription(description.getText().toString().trim());
+                                        r.setSteps(steps);
+                                        r.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        r.setDislike(0);
+                                        r.setLike(0);
+                                        r.setViews(0);
+                                        databaseReference.setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                name.setText("");
+                                                description.setText("");
+                                                steps.clear();
+                                                picture.setImageDrawable(getResources().getDrawable(R.drawable.gal));
+                                                addRecipeAdapter.notifyDataSetChanged();
+                                                Toast.makeText(getContext(), "Рецепт успешно добавлен", Toast.LENGTH_LONG).show();
+                                                progressDialog.dismiss();
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
                     }
+                })
+                .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
                 });
-            }
-        });
+        builder.show();
+
     }
 }

@@ -67,6 +67,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         step = steps.get(position);
         holder.stepDesc.setText(step.getDesc());
+        holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1) + ")");
 
         holder.stepDesc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,10 +151,11 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView stepDesc, timeLeft;
+        TextView stepDesc, timeLeft, stepPosition;
         Button timerStartStop, timerReset;
         ViewHolder(View view){
             super(view);
+            stepPosition = view.findViewById(R.id.openRecipeStepPosition);
             stepDesc = view.findViewById(R.id.openRecipeStepDesc);
             timeLeft = view.findViewById(R.id.timerTimeLeft);
             timerReset = view.findViewById(R.id.timerResetTimer);

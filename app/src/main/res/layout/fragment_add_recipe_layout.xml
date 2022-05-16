@@ -20,33 +20,38 @@
 
             <Button
                 android:id="@+id/addRecipeImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="80dp"
-                android:text="Картинка"
+                android:layout_width="131dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="60dp"
+                android:text="Добавить обложку"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addRecipeDesc" />
 
             <EditText
                 android:id="@+id/addRecipeName"
-                android:layout_width="238dp"
-                android:layout_height="52dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="16dp"
+                android:layout_width="0dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
                 android:ems="10"
                 android:hint="Название блюда"
                 android:inputType="textPersonName"
+                app:layout_constraintEnd_toStartOf="@+id/sendRecipeBtn"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addRecipeDesc"
-                android:layout_width="383dp"
-                android:layout_height="199dp"
-                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="20dp"
                 android:hint="Описание блюда + Ингредиенты"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addRecipeName" />
 
@@ -54,30 +59,42 @@
                 android:id="@+id/addRecipeImage"
                 android:layout_width="400px"
                 android:layout_height="400px"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icons8___150"
-                app:layout_constraintStart_toEndOf="@+id/addRecipeImageButton"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addRecipeDesc" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/addrecipeview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addRecipeImage" />
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <Button
                 android:id="@+id/sendRecipeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="20dp"
                 android:text="Отправить"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/addRecipeName"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Этапы приготовления"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addRecipeImage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -88,9 +105,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|right"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="544dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
         android:text="Новый шаг"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintStart_toEndOf="@+id/scrollView2" />

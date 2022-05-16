@@ -1,5 +1,6 @@
 package com.example.foodhub.Add;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ public class add_new_step extends Fragment {
     EditText addDesc, addDuration;
     Button confirmAdd, canselAdd;
     NumberPicker secPicker, minPicker, hourPicker;
+    CheckBox checkBox;
 
     private String imageUri;
 
@@ -51,19 +55,39 @@ public class add_new_step extends Fragment {
         secPicker   = view.findViewById(R.id.addStepSecPicker);
         minPicker   = view.findViewById(R.id.addStepMinPicker);
         hourPicker  = view.findViewById(R.id.addStepHourPicker);
+        checkBox    = view.findViewById(R.id.addRecipeCheckBox);
 
         secPicker.setMaxValue(59);
         secPicker.setMinValue(0);
+        secPicker.setValue(0);
 
         minPicker.setMaxValue(59);
         minPicker.setMinValue(0);
+        minPicker.setValue(0);
 
         hourPicker.setMaxValue(24);
         hourPicker.setMinValue(0);
+        minPicker.setValue(0);
 
         Bundle finalLoadBundle = loadBundle;
 
-        imageUri = loadBundle.getString("main_image_uri");
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkBox.isChecked()) {
+                    secPicker.setVisibility(View.VISIBLE);
+                    minPicker.setVisibility(View.VISIBLE);
+                    hourPicker.setVisibility(View.VISIBLE);
+                }
+                else {
+                    secPicker.setVisibility(View.GONE);
+                    minPicker.setVisibility(View.GONE);
+                    hourPicker.setVisibility(View.GONE);
+                }
+            }
+        });
+
+                imageUri = loadBundle.getString("main_image_uri");
         ArrayList<String> step_desc = loadBundle.getStringArrayList("step_desc_list");
         ArrayList<Integer> step_sec = loadBundle.getIntegerArrayList("step_sec_list");
         ArrayList<Integer> step_min = loadBundle.getIntegerArrayList("step_min_list");
@@ -123,6 +147,8 @@ public class add_new_step extends Fragment {
 
                 Fragment addrecipe = new AddRecipeFragmentLayout();
                 addrecipe.setArguments(bundle);
+                InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);

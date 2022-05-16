@@ -3,6 +3,7 @@ package com.example.foodhub;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -20,7 +21,7 @@ import java.util.Locale;
 public class ForgotPasswordActivity extends AppCompatActivity  {
 
     private EditText forgotPasswordEmail;
-    private Button resetPassword;
+    private Button resetPassword, resetCansel;
     private ProgressBar progressBar;
 
     FirebaseAuth auth;
@@ -31,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_forgot_password);
 
         forgotPasswordEmail = (EditText) findViewById(R.id.forgotPasswordEmail);
-
+        resetCansel = findViewById(R.id.resetPasswordCansel);
         resetPassword = (Button) findViewById(R.id.resetPassword);
 
         progressBar = (ProgressBar) findViewById(R.id.forgotPasswordProgressBar);
@@ -61,6 +62,13 @@ public class ForgotPasswordActivity extends AppCompatActivity  {
             forgotPasswordEmail.requestFocus();
             return;
         }
+
+        resetCansel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), MainActivity.class));
+            }
+        });
 
         progressBar.setVisibility(View.VISIBLE);
         auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {

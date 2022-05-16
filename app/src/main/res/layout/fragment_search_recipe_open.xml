@@ -131,8 +131,8 @@
                     android:id="@+id/OpenRecipeLikeBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="11dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="36dp"
                     android:text="Понравилось"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/OpenRecipeRecyclerView" />
@@ -141,10 +141,20 @@
                     android:id="@+id/OpenRecipeDislikeBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="36dp"
                     android:text="Не понравилось"
                     app:layout_constraintStart_toEndOf="@+id/OpenRecipeLikeBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/OpenRecipeRecyclerView" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="145dp"
+                    android:layout_marginTop="9dp"
+                    android:text="Конец рецепта"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/OpenRecipeRecyclerView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

@@ -37,13 +37,14 @@
         app:layout_constraintStart_toEndOf="@+id/desc"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_edit_l"
+    <TextView
+        android:id="@+id/AddStepPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:text="Изменить"
-        app:layout_constraintStart_toEndOf="@+id/duration"
-        app:layout_constraintTop_toBottomOf="@+id/button_del_1" />
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="11dp"
+        android:text="Позиция"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

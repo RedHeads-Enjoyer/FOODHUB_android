@@ -1,6 +1,8 @@
 package com.example.foodhub.Profile;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -96,9 +98,25 @@ public class ProfileRecipeAdapter extends RecyclerView.Adapter<ProfileRecipeAdap
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).removeValue();
-                recipes.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
+                AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
+                builder.setTitle("Удаение")
+                        .setMessage("Вы  уврены, что хотите удалить рецепт " + recipe.getName() + "?")
+                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).removeValue();
+                                recipes.remove(holder.getAdapterPosition());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                Toast.makeText(inflater.getContext(), "Рецепт удален", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                builder.show();
             }
         });
     }
