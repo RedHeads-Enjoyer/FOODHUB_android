@@ -67,7 +67,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         step = steps.get(position);
         holder.stepDesc.setText(step.getDesc());
-        holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1) + ")");
+        holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1));
 
         holder.stepDesc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +90,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
                     if (isTimerRunning) {
                         countDownTimer.cancel();
                         isTimerRunning = false;
-                        holder.timerStartStop.setText("start");
+                        holder.timerStartStop.setText("начать");
                         holder.timerReset.setVisibility(View.VISIBLE);
                     }else {
                         countDownTimer = new CountDownTimer(timerTimeLeft, 1000) {
@@ -107,7 +107,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
                             @Override
                             public void onFinish() {
                                 isTimerRunning = false;
-                                holder.timerStartStop.setText("start");
+                                holder.timerStartStop.setText("начать");
                                 holder.timerStartStop.setVisibility(View.INVISIBLE);
                                 holder.timerReset.setVisibility(View.VISIBLE);
                                 mediaPlayer = MediaPlayer.create(inflater.getContext(), R.raw.timer);
@@ -117,7 +117,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
                             }
                         }.start();
                         isTimerRunning = true;
-                        holder.timerStartStop.setText("pause");
+                        holder.timerStartStop.setText("пауза");
                         holder.timerReset.setVisibility(View.INVISIBLE);
                     }
                 }

@@ -13,10 +13,10 @@
 
         <ImageView
             android:id="@+id/ProfileRecipeImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="350px"
+            android:layout_height="350px"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/icons8___150"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,39 +25,43 @@
             android:id="@+id/ProfileReciperName"
             android:layout_width="200dp"
             android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
             android:text="Название рецепта"
-            android:textSize="20dp"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toEndOf="@+id/ProfileRecipeImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ProfileRecipeViews"
-            android:layout_width="43dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="213dp"
             android:src="@drawable/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.36"
             app:layout_constraintStart_toEndOf="@+id/ProfileRecipeImg"
-            app:layout_constraintTop_toBottomOf="@+id/ProfileReciperName" />
+            app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeDeleteBtn" />
 
         <ImageView
             android:id="@+id/ProfileRecipeLike"
-            android:layout_width="39dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/like"
             app:layout_constraintStart_toEndOf="@+id/ProfileRecipeImg"
             app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeViews" />
 
         <ImageView
             android:id="@+id/ProfileRecipeDislike"
-            android:layout_width="38dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="14dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="28dp"
             android:src="@drawable/dislike"
             app:layout_constraintStart_toEndOf="@+id/ProfileRecipeRetingBar"
             app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeDeleteBtn" />
@@ -67,41 +71,48 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="115dp"
             android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="7dp"
             app:layout_constraintStart_toEndOf="@+id/ProfileRecipeLike"
             app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeViewsCount" />
 
         <TextView
             android:id="@+id/ProfileRecipeViewsCount"
-            android:layout_width="55dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Загрузка"
             app:layout_constraintStart_toEndOf="@+id/ProfileRecipeViews"
-            app:layout_constraintTop_toBottomOf="@+id/ProfileReciperName" />
+            app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeDeleteBtn" />
 
         <TextView
             android:id="@+id/ProfileRecipeLikeDislikeCounter"
             android:layout_width="52dp"
             android:layout_height="20dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="4dp"
-            android:text="TextView"
+            android:text="Загрузка"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/ProfileRecipeDislike"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toEndOf="@+id/ProfileRecipeLike"
             app:layout_constraintTop_toBottomOf="@+id/ProfileRecipeRetingBar" />
 
         <Button
             android:id="@+id/ProfileRecipeDeleteBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="3dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:overScrollMode="never"
+            android:paddingLeft="0sp"
+            android:paddingTop="0sp"
+            android:paddingRight="0sp"
+            android:paddingBottom="0sp"
             android:text="Удалить"
-            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeViewsCount"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toEndOf="@+id/ProfileRecipeImg"
             app:layout_constraintTop_toBottomOf="@+id/ProfileReciperName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

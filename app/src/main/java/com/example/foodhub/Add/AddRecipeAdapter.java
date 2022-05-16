@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,14 +48,19 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
     public void onBindViewHolder(@NonNull AddRecipeAdapter.ViewHolder holder, int position) {
         Step state = steps.get(position);
         holder.descView.setText(state.getDesc());
-        holder.stepPos.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1) + ")");
+        holder.stepPos.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1));
         String s = state.getSec().toString();
         String m = state.getMin().toString();
         String h = state.getHour().toString();
         if (s.length() == 1) s = "0" + s;
         if (m.length() == 1) m = "0" + m;
         if (h.length() == 1) h = "0" + h;
-        holder.durationView.setText(h + ":" + m + ":" + s);
+        if (state.getMin() != 0 || state.getSec() != 0 || state.getHour() != 0) {
+            holder.durationView.setText(h + ":" + m + ":" + s);
+        }
+        else {
+            holder.durationView.setText("Длительность этапа не указана");
+        }
         holder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +94,7 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final Button buttonView;
+        final ImageView buttonView;
         final TextView descView, durationView, stepPos;
         ViewHolder(View view){
             super(view);

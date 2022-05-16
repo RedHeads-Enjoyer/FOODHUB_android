@@ -23,7 +23,7 @@ import com.example.foodhub.R;
 import java.util.ArrayList;
 
 public class add_new_step extends Fragment {
-    EditText addDesc, addDuration;
+    EditText addDesc;
     Button confirmAdd, canselAdd;
     NumberPicker secPicker, minPicker, hourPicker;
     CheckBox checkBox;
@@ -127,7 +127,6 @@ public class add_new_step extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
@@ -152,7 +151,6 @@ public class add_new_step extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

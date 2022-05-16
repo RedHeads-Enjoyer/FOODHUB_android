@@ -13,10 +13,10 @@
 
         <ImageView
             android:id="@+id/searchRecipeImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="350px"
+            android:layout_height="350px"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/icons8___150"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,50 +24,56 @@
         <TextView
             android:id="@+id/searchReciperName"
             android:layout_width="200dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
             android:text="Название рецепта"
-            android:textSize="20dp"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toEndOf="@+id/searchRecipeImg"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/searchRecipeAuthor"
-            android:layout_width="201dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
             android:text="Имя автора"
-            android:textSize="20dp"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toEndOf="@+id/searchRecipeImg"
             app:layout_constraintTop_toBottomOf="@+id/searchReciperName" />
 
         <ImageView
             android:id="@+id/SearchRecipeViews"
-            android:layout_width="43dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="1dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.04"
             app:layout_constraintStart_toEndOf="@+id/searchRecipeImg"
             app:layout_constraintTop_toBottomOf="@+id/searchRecipeAuthor" />
 
         <ImageView
             android:id="@+id/SearchRecipeLike"
-            android:layout_width="39dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="36dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/like"
             app:layout_constraintStart_toEndOf="@+id/searchRecipeImg"
-            app:layout_constraintTop_toBottomOf="@+id/searchRecipeAuthor" />
+            app:layout_constraintTop_toBottomOf="@+id/SearchRecipeViews" />
 
         <ImageView
             android:id="@+id/SearchRecipeDislike"
-            android:layout_width="38dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="9dp"
-            android:layout_marginTop="37dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="28dp"
             android:src="@drawable/dislike"
             app:layout_constraintStart_toEndOf="@+id/SearchRecipeRetingBar"
             app:layout_constraintTop_toBottomOf="@+id/searchRecipeAuthor" />
@@ -77,29 +83,30 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="115dp"
             android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="7dp"
             app:layout_constraintStart_toEndOf="@+id/SearchRecipeLike"
             app:layout_constraintTop_toBottomOf="@+id/searchRecipeViewsCount" />
 
         <TextView
             android:id="@+id/searchRecipeViewsCount"
-            android:layout_width="55dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            android:text="Загрузка"
             app:layout_constraintStart_toEndOf="@+id/SearchRecipeViews"
             app:layout_constraintTop_toBottomOf="@+id/searchRecipeAuthor" />
 
         <TextView
             android:id="@+id/SearchRecipeLikeDislikeCounter"
-            android:layout_width="52dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="40dp"
-            android:text="TextView"
+            android:text="Загрузка"
+            android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/SearchRecipeDislike"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.21"
             app:layout_constraintStart_toEndOf="@+id/SearchRecipeLike"
             app:layout_constraintTop_toBottomOf="@+id/SearchRecipeRetingBar" />
     </androidx.constraintlayout.widget.ConstraintLayout>

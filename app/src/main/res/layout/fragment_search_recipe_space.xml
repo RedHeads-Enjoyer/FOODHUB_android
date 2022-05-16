@@ -13,22 +13,25 @@
 
         <EditText
             android:id="@+id/searchBarText"
-            android:layout_width="273dp"
+            android:layout_width="0dp"
             android:layout_height="49dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:ems="10"
             android:hint="Поиск"
             android:inputType="textPersonName"
+            app:layout_constraintEnd_toStartOf="@+id/searchRecipeBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecipeRecyclerView"
-            android:layout_width="410dp"
-            android:layout_height="550dp"
-            android:layout_marginStart="1dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchBarText" />
 
@@ -36,10 +39,11 @@
             android:id="@+id/searchRecipeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:text="Найти"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/searchBarText"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

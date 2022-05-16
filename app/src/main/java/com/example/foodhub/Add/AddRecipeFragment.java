@@ -42,7 +42,6 @@ public class AddRecipeFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         return view;
     }

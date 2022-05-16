@@ -71,6 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fadeScrollbars="false"
+                android:overScrollMode="never"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <Button
@@ -96,20 +98,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/addRecipeImage" />
 
+            <Button
+                android:id="@+id/addRecipeNewStep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Добавить этап"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addrecipeview" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <Button
-        android:id="@+id/addRecipeNewStep"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|right"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Новый шаг"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintStart_toEndOf="@+id/scrollView2" />
 
 
 </RelativeLayout>
