@@ -1,6 +1,9 @@
 package com.example.foodhub.Search;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,10 +25,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.MainActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
 import com.example.foodhub.Step;
 import com.example.foodhub.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -112,6 +117,16 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
                                 holder.timerReset.setVisibility(View.VISIBLE);
                                 mediaPlayer = MediaPlayer.create(inflater.getContext(), R.raw.timer);
                                 mediaPlayer.start();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
+                                builder.setTitle("Таймер")
+                                        .setMessage("Таймер этапа " + Integer.toString(holder.getAdapterPosition() + 1) + " закончил свою работу")
+                                        .setPositiveButton("Понял", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.cancel();
+                                            }
+                                        });
+                                builder.show();
 
 
                             }
