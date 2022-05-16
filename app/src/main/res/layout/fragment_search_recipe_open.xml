@@ -113,6 +113,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fadeScrollbars="false"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -133,10 +136,14 @@
                 android:id="@+id/OpenRecipeLikeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:paddingLeft="4sp"
+                android:paddingTop="4sp"
+                android:paddingRight="4sp"
+                android:paddingBottom="4sp"
                 android:text="Понравилось"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.164"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -174,10 +181,13 @@
                 android:id="@+id/OpenRecipeDislikeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingLeft="4sp"
+                android:paddingRight="4sp"
                 android:text="Не понравилось"
-                app:layout_constraintStart_toEndOf="@+id/OpenRecipeLikeBtn"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

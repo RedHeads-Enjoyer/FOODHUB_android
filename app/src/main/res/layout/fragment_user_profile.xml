@@ -42,6 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fadeScrollbars="false"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

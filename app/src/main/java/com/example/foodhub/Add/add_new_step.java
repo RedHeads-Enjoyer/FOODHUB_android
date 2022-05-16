@@ -126,6 +126,8 @@ public class add_new_step extends Fragment {
                 addrecipe.setArguments(bundle);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 fragmentTransaction.replace(R.id.addNewRecipeHostLayout, addrecipe);
                 fragmentTransaction.commit();
             }
