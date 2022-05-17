@@ -1,5 +1,6 @@
 package com.example.foodhub.Search;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.foodhub.R;
 import com.example.foodhub.Step;
 import com.example.foodhub.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -30,6 +32,11 @@ public class SearchRecipeOpen extends Fragment {
     private ArrayList<Integer> hour = new ArrayList<>();
     private ArrayList<String> stepDesc = new ArrayList<>();
     private ArrayList<Step> steps = new ArrayList<>();
+    private ArrayList<String> whoLiked = new ArrayList<>();
+    private ArrayList<String> whoDisliked = new ArrayList<>();
+    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+    int likeSize;
+    int disLikeSize;
 
     private TextView RecipeName, ViewsCounter, LikeCounter, DislikeCounter, RecipeDesc, Username;
     private ImageView RecipeImg;
@@ -88,6 +95,28 @@ public class SearchRecipeOpen extends Fragment {
         likeC = bundle.getInt("recipe_like");
         dislikeC = bundle.getInt("recipe_dislike");
 
+        whoLiked = bundle.getStringArrayList("who_liked");
+        whoDisliked = bundle.getStringArrayList("who_disliked");
+
+        l = false;
+        dl = false;
+        likeSize = whoLiked.size();
+        disLikeSize = whoDisliked.size();
+        if (whoDisliked.contains(userID)) {
+            LikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
+            DislikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
+            dislikeC = dislikeC - 1;
+            disLikeSize = disLikeSize - 2;
+            dl = true;
+        }
+        else if (whoLiked.contains(userID)){
+            LikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
+            DislikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
+            likeC = likeC - 1;
+            likeSize = likeSize - 2;
+            l = true;
+        }
+
         for (int i=0; i < stepDesc.size(); i++) {
             steps.add(new Step(stepDesc.get(i), sec.get(i), min.get(i), hour.get(i)));
         }
@@ -99,16 +128,27 @@ public class SearchRecipeOpen extends Fragment {
 
         Picasso.get().load(bundle.getString("recipe_img")).resize(350, 350).placeholder(R.drawable.gal).centerCrop().into(RecipeImg);
 
-        l = true;
-        dl = true;
         LikeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (l) {
                     l = false;
-                    Toast.makeText(inflater.getContext(), "Спасибо за вашу оценку", Toast.LENGTH_LONG).show();
+                    LikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("like").setValue(likeC);
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoLiked").child(Integer.toString(likeSize + 1)).removeValue();
+                    return;
+                }
+                if (!l) {
+                    if (dl) {
+                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(dislikeC);
+                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoDisliked").child(Integer.toString(disLikeSize + 1)).removeValue();
+                    }
+                    dl = false;
+                    l = true;
                     FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("like").setValue(likeC + 1);
-                    DislikeBtn.setVisibility(View.INVISIBLE);
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoLiked").child(Integer.toString(likeSize + 1)).setValue(userID);
+                    LikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
+                    DislikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
                 }
             }
         });
@@ -118,9 +158,22 @@ public class SearchRecipeOpen extends Fragment {
             public void onClick(View view) {
                 if (dl) {
                     dl = false;
-                    Toast.makeText(inflater.getContext(), "Спасибо за вашу оценку", Toast.LENGTH_LONG).show();
+                    DislikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(dislikeC);
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoDisliked").child(Integer.toString(disLikeSize + 1)).removeValue();
+                    return;
+                }
+                if (!dl) {
+                    if (l) {
+                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("like").setValue(likeC);
+                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoLiked").child(Integer.toString(likeSize + 1)).removeValue();
+                    }
+                    dl = true;
+                    l = false;
+                    LikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
+                    DislikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoDisliked").child(Integer.toString(disLikeSize + 1)).setValue(userID);
                     FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(dislikeC + 1);
-                    LikeBtn.setVisibility(View.INVISIBLE);
                 }
             }
         });

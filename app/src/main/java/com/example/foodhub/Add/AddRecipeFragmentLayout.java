@@ -263,6 +263,15 @@ public class AddRecipeFragmentLayout extends Fragment {
                                         r.setDislike(0);
                                         r.setLike(0);
                                         r.setViews(0);
+                                        ArrayList<String> whoWatched = new ArrayList<>();
+                                        ArrayList<String> whoLiked = new ArrayList<>();
+                                        ArrayList<String> whoDisliked = new ArrayList<>();
+                                        whoWatched.add("1");
+                                        whoLiked.add("1");
+                                        whoDisliked.add("1");
+                                        r.setWhoWatched(whoWatched);
+                                        r.setWhoLiked(whoLiked);
+                                        r.setWhoDisiked(whoDisliked);
                                         databaseReference.setValue(r).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {

@@ -9,14 +9,10 @@ public class Recipe {
     private ArrayList<Step> steps;
     private Integer like, dislike, views;
     private String image, recipeID;
-
-    public String getRecipeID() {
-        return recipeID;
-    }
-
-    public void setRecipeID(String recipeID) {
-        this.recipeID = recipeID;
-    }
+    private ArrayList<String> whoLiked;
+    private ArrayList<String> whoWatched;
+    private ArrayList<String> whoDisliked;
+    private String username;
 
     public String getUsername() {
         return username;
@@ -26,9 +22,7 @@ public class Recipe {
         this.username = username;
     }
 
-    private String username;
-
-    public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, String image) {
+    public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, String image, String recipeID, ArrayList<String> whoLiked, ArrayList<String> whoWatched, ArrayList<String> whoDisiked) {
         this.name = name;
         this.description = description;
         this.userID = userID;
@@ -37,6 +31,10 @@ public class Recipe {
         this.dislike = dislike;
         this.views = views;
         this.image = image;
+        this.recipeID = recipeID;
+        this.whoLiked = whoLiked;
+        this.whoWatched = whoWatched;
+        this.whoDisliked = whoDisiked;
     }
 
     public Recipe() {}
@@ -103,5 +101,37 @@ public class Recipe {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(String recipeID) {
+        this.recipeID = recipeID;
+    }
+
+    public ArrayList<String> getWhoLiked() {
+        return whoLiked;
+    }
+
+    public void setWhoLiked(ArrayList<String> whoLiked) {
+        this.whoLiked = whoLiked;
+    }
+
+    public ArrayList<String> getWhoWatched() {
+        return whoWatched;
+    }
+
+    public void setWhoWatched(ArrayList<String> whoWatched) {
+        this.whoWatched = whoWatched;
+    }
+
+    public ArrayList<String> getWhoDisiked() {
+        return whoDisliked;
+    }
+
+    public void setWhoDisiked(ArrayList<String> whoDisiked) {
+        this.whoDisliked = whoDisiked;
     }
 }

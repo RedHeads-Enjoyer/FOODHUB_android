@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
 import com.example.foodhub.Step;
 import com.example.foodhub.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +40,9 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
 
     private final LayoutInflater inflater;
     private final List<Recipe> recipes;
+
+    private boolean da = true;
+    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
 
     public SearchRecipeAdapter(Context context, List<Recipe> recipes) {
         this.inflater = LayoutInflater.from(context);
@@ -89,8 +94,15 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).child("views").setValue(recipe.getViews() + 1);
+                if (recipe.getWhoWatched() == null) {
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).child("views").setValue(recipe.getViews() + 1);
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).child("whoWatched").child( Integer.toString(recipe.getWhoWatched().size() + 1)).setValue(userID);
+                }
+                else
+                if (!recipe.getWhoWatched().contains(userID)) {
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).child("views").setValue(recipe.getViews() + 1);
+                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipe.getRecipeID()).child("whoWatched").child(Integer.toString(recipe.getWhoWatched().size() + 1)).setValue(userID);
+                }
                 ArrayList<Integer> sec = new ArrayList<>();
                 ArrayList<Integer> min = new ArrayList<>();
                 ArrayList<Integer> hour = new ArrayList<>();
@@ -122,6 +134,8 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                 bundle.putInt("recipe_dislike", recipe.getDislike());
                 bundle.putString("recipe_img", recipe.getImage());
                 bundle.putString("username", recipe.getUsername());
+                bundle.putStringArrayList("who_liked", recipe.getWhoLiked());
+                bundle.putStringArrayList("who_disliked", recipe.getWhoDisiked());
 
                 Fragment sro = new SearchRecipeOpen();
                 sro.setArguments(bundle);
