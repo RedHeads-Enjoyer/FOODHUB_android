@@ -14,15 +14,7 @@ public class Recipe {
     private ArrayList<String> whoDisliked;
     private String username;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, String image, String recipeID, ArrayList<String> whoLiked, ArrayList<String> whoWatched, ArrayList<String> whoDisiked) {
+    public Recipe(String name, String description, String userID, ArrayList<Step> steps, Integer like, Integer dislike, Integer views, String image, String recipeID, ArrayList<String> whoLiked, ArrayList<String> whoWatched, ArrayList<String> whoDisliked, String username) {
         this.name = name;
         this.description = description;
         this.userID = userID;
@@ -34,7 +26,8 @@ public class Recipe {
         this.recipeID = recipeID;
         this.whoLiked = whoLiked;
         this.whoWatched = whoWatched;
-        this.whoDisliked = whoDisiked;
+        this.whoDisliked = whoDisliked;
+        this.username = username;
     }
 
     public Recipe() {}
@@ -127,11 +120,19 @@ public class Recipe {
         this.whoWatched = whoWatched;
     }
 
-    public ArrayList<String> getWhoDisiked() {
+    public ArrayList<String> getWhoDisliked() {
         return whoDisliked;
     }
 
-    public void setWhoDisiked(ArrayList<String> whoDisiked) {
-        this.whoDisliked = whoDisiked;
+    public void setWhoDisliked(ArrayList<String> whoDisliked) {
+        this.whoDisliked = whoDisliked;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

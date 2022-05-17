@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.foodhub.R;
 import com.example.foodhub.Step;
 import com.example.foodhub.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -35,8 +37,8 @@ public class SearchRecipeOpen extends Fragment {
     private ArrayList<String> whoLiked = new ArrayList<>();
     private ArrayList<String> whoDisliked = new ArrayList<>();
     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
-    int likeSize;
-    int disLikeSize;
+    int likeInd;
+    int disLikeInd;
 
     private TextView RecipeName, ViewsCounter, LikeCounter, DislikeCounter, RecipeDesc, Username;
     private ImageView RecipeImg;
@@ -98,24 +100,37 @@ public class SearchRecipeOpen extends Fragment {
         whoLiked = bundle.getStringArrayList("who_liked");
         whoDisliked = bundle.getStringArrayList("who_disliked");
 
+
         l = false;
         dl = false;
-        likeSize = whoLiked.size();
-        disLikeSize = whoDisliked.size();
         if (whoDisliked.contains(userID)) {
+            Log.d("zxc", "1");
+            for (int i = 0; i < whoDisliked.size(); i++) {
+                if (whoDisliked.get(i) == userID) {
+                    disLikeInd = i;
+                    break;
+                }
+            }
             LikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
             DislikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
             dislikeC = dislikeC - 1;
-            disLikeSize = disLikeSize - 2;
             dl = true;
         }
-        else if (whoLiked.contains(userID)){
+        else disLikeInd = whoDisliked.size();
+        if (whoLiked.contains(userID)){
+            Log.d("zxc", "2");
+            for (int i = 0; i < whoLiked.size(); i++) {
+                if (whoLiked.get(i) == userID) {
+                    likeInd = i;
+                    break;
+                }
+            }
             LikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
             DislikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
             likeC = likeC - 1;
-            likeSize = likeSize - 2;
             l = true;
         }
+        else likeInd = whoLiked.size();
 
         for (int i=0; i < stepDesc.size(); i++) {
             steps.add(new Step(stepDesc.get(i), sec.get(i), min.get(i), hour.get(i)));
@@ -131,22 +146,23 @@ public class SearchRecipeOpen extends Fragment {
         LikeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID);
                 if (l) {
                     l = false;
                     LikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("like").setValue(likeC);
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoLiked").child(Integer.toString(likeSize + 1)).removeValue();
+                    databaseReference.child("like").setValue(likeC);
+                    databaseReference.child("whoLiked").child(Integer.toString(likeInd)).removeValue();
                     return;
                 }
                 if (!l) {
                     if (dl) {
-                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(dislikeC);
-                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoDisliked").child(Integer.toString(disLikeSize + 1)).removeValue();
+                        databaseReference.child("dislike").setValue(dislikeC);
+                        databaseReference.child("whoDisliked").child(Integer.toString(disLikeInd)).removeValue();
                     }
                     dl = false;
                     l = true;
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("like").setValue(likeC + 1);
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoLiked").child(Integer.toString(likeSize + 1)).setValue(userID);
+                    databaseReference.child("like").setValue(likeC + 1);
+                    databaseReference.child("whoLiked").child(Integer.toString(likeInd)).setValue(userID);
                     LikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
                     DislikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
                 }
@@ -154,26 +170,27 @@ public class SearchRecipeOpen extends Fragment {
         });
 
         DislikeBtn.setOnClickListener(new View.OnClickListener() {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID);
             @Override
             public void onClick(View view) {
                 if (dl) {
                     dl = false;
                     DislikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(dislikeC);
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoDisliked").child(Integer.toString(disLikeSize + 1)).removeValue();
+                    databaseReference.child("dislike").setValue(dislikeC);
+                    databaseReference.child("whoDisliked").child(Integer.toString(disLikeInd)).removeValue();
                     return;
                 }
                 if (!dl) {
                     if (l) {
-                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("like").setValue(likeC);
-                        FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoLiked").child(Integer.toString(likeSize + 1)).removeValue();
+                        databaseReference.child("like").setValue(likeC);
+                        databaseReference.child("whoLiked").child(Integer.toString(likeInd)).removeValue();
                     }
                     dl = true;
                     l = false;
                     LikeBtn.setBackgroundColor(getResources().getColor(R.color.cliked_btn));
                     DislikeBtn.setBackgroundColor(getResources().getColor(R.color.uncliked_btn));
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("whoDisliked").child(Integer.toString(disLikeSize + 1)).setValue(userID);
-                    FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID).child("dislike").setValue(dislikeC + 1);
+                    databaseReference.child("whoDisliked").child(Integer.toString(disLikeInd)).setValue(userID);
+                    databaseReference.child("dislike").setValue(dislikeC + 1);
                 }
             }
         });

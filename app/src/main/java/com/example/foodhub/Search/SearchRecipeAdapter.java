@@ -2,6 +2,7 @@ package com.example.foodhub.Search;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,7 +136,8 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                 bundle.putString("recipe_img", recipe.getImage());
                 bundle.putString("username", recipe.getUsername());
                 bundle.putStringArrayList("who_liked", recipe.getWhoLiked());
-                bundle.putStringArrayList("who_disliked", recipe.getWhoDisiked());
+                bundle.putStringArrayList("who_disliked", recipe.getWhoDisliked());
+                Log.d("qwe", Integer.toString(recipe.getWhoDisliked().size()));
 
                 Fragment sro = new SearchRecipeOpen();
                 sro.setArguments(bundle);
