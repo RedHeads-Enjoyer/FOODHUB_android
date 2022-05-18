@@ -18,10 +18,10 @@
                 android:id="@+id/UserProfileExit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
                 android:text="выйти"
-                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -32,7 +32,7 @@
                 android:text="ВАШИ РЕЦЕПТЫ"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/UserProfileExit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,8 +45,20 @@
                 android:isScrollContainer="false"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
+                android:visibility="visible"
                 app:fastScrollEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/UserProfileEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="Здесь пока пусто :("
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 

@@ -1,5 +1,6 @@
 package com.example.foodhub.Search;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,11 +52,10 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
     final LayoutInflater inflater;
     final List<Step> steps;
     private Step step;
-    CountDownTimer countDownTimer;
-    
-    boolean isTimerRunning = false;
-    long START_TIME;
-    long timerTimeLeft;
+
+    private Handler handler = new Handler();
+
+
     MediaPlayer mediaPlayer;
 
     public OpenRecipeStepsAdapter(Context context, List<Step> steps) {
@@ -70,9 +70,9 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         step = steps.get(holder.getAdapterPosition());
         holder.stepDesc.setText(step.getDesc());
         holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1));
@@ -80,8 +80,8 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
 
         if (step.getHour() != 0 || step.getMin() !=0 || step.getSec() !=0) {
 
-            START_TIME = step.getHour() * 3600 * 1000 + step.getMin() * 60 * 1000 + step.getSec() * 1000;
-            timerTimeLeft = START_TIME;
+            holder.START_TIME = step.getHour() * 3600 * 1000 + step.getMin() * 60 * 1000 + step.getSec() * 1000;
+            holder.timerTimeLeft = holder.START_TIME;
 
             holder.timeLeft.setVisibility(View.VISIBLE);
             holder.timerStartStop.setVisibility(View.VISIBLE);
@@ -90,26 +90,26 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
             holder.timerStartStop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (isTimerRunning) {
-                        countDownTimer.cancel();
-                        isTimerRunning = false;
+                    if (holder.isTimerRunning) {
+                        holder.countDownTimer.cancel();
+                        holder.isTimerRunning = false;
                         holder.timerStartStop.setText("начать");
                         holder.timerReset.setVisibility(View.VISIBLE);
                     }else {
-                        countDownTimer = new CountDownTimer(timerTimeLeft, 1000) {
+                        holder.countDownTimer = new CountDownTimer(holder.timerTimeLeft, 1000) {
                             @Override
                             public void onTick(long l) {
-                                timerTimeLeft = l;
-                                int hours = (int) timerTimeLeft / 1000 / 3600;
-                                int minitues = (int) timerTimeLeft / 1000 / 60 % 60;
-                                int sec = (int) timerTimeLeft / 1000 % 60;
+                                holder.timerTimeLeft = l;
+                                int hours = (int) holder.timerTimeLeft / 1000 / 3600;
+                                int minitues = (int) holder.timerTimeLeft / 1000 / 60 % 60;
+                                int sec = (int) holder.timerTimeLeft / 1000 % 60;
                                 String timeLeftString = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours,minitues, sec);
                                 holder.timeLeft.setText(timeLeftString);
                             }
 
                             @Override
                             public void onFinish() {
-                                isTimerRunning = false;
+                                holder.isTimerRunning = false;
                                 holder.timerStartStop.setText("начать");
                                 holder.timerStartStop.setVisibility(View.INVISIBLE);
                                 holder.timerReset.setVisibility(View.VISIBLE);
@@ -131,7 +131,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
 
                             }
                         }.start();
-                        isTimerRunning = true;
+                        holder.isTimerRunning = true;
                         holder.timerStartStop.setText("пауза");
                         holder.timerReset.setVisibility(View.INVISIBLE);
                     }
@@ -141,19 +141,19 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
             holder.timerReset.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    timerTimeLeft = START_TIME;
-                    int hours = (int) timerTimeLeft / 1000 / 3600;
-                    int minitues = (int) timerTimeLeft / 1000 / 60 % 60;
-                    int sec = (int) timerTimeLeft / 1000 % 60;
+                    holder.timerTimeLeft = holder.START_TIME;
+                    int hours = (int) holder.timerTimeLeft / 1000 / 3600;
+                    int minitues = (int) holder.timerTimeLeft / 1000 / 60 % 60;
+                    int sec = (int) holder.timerTimeLeft / 1000 % 60;
                     String timeLeftString = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours,minitues, sec);
                     holder.timeLeft.setText(timeLeftString);
                     holder.timerReset.setVisibility(View.INVISIBLE);
                     holder.timerStartStop.setVisibility(View.VISIBLE);
                 }
             });
-            int hours = (int) timerTimeLeft / 1000 / 3600;
-            int minitues = (int) timerTimeLeft / 1000 / 60 % 60;
-            int sec = (int) timerTimeLeft / 1000 % 60;
+            int hours = (int) holder.timerTimeLeft / 1000 / 3600;
+            int minitues = (int) holder.timerTimeLeft / 1000 / 60 % 60;
+            int sec = (int) holder.timerTimeLeft / 1000 % 60;
             String timeLeftString = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours,minitues, sec);
             holder.timeLeft.setText(timeLeftString);
         }
@@ -167,7 +167,11 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView stepDesc, timeLeft, stepPosition;
+        boolean isTimerRunning = false;
         Button timerStartStop, timerReset;
+        CountDownTimer countDownTimer;
+        long START_TIME;
+        long timerTimeLeft;
         ViewHolder(View view){
             super(view);
             stepPosition = view.findViewById(R.id.openRecipeStepPosition);

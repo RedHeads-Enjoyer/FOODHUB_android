@@ -1,6 +1,7 @@
 package com.example.foodhub.Search;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,6 +70,9 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (recipe.getWhoWatched().contains(userID)) {
+//                    holder.viewPic.setImageDrawable(holder.recipeImg.getDrawable(R.drawable.cool_view));
+//                }
                 User userProfile = snapshot.getValue(User.class);
                 Picasso.get().load(recipe.getImage()).resize(350, 350).placeholder(R.drawable.gal).centerCrop().into(holder.recipeImg);
                 holder.authorName.setText(userProfile.getUsername());
@@ -160,9 +164,13 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         final TextView recipeName, authorName, viewsCounter, likeDislikeCounter;
         final ImageView recipeImg;
         final ProgressBar likeDislikeBar;
+        final ImageView likePic, dislikePic, viewPic;
         final ConstraintLayout layout;
         ViewHolder(View view){
             super(view);
+            likePic = view.findViewById(R.id.SearchRecipeLike);
+            viewPic = view.findViewById(R.id.SearchRecipeViews);
+            dislikePic = view.findViewById(R.id.SearchRecipeDislike);
             recipeName = view.findViewById(R.id.searchReciperName);
             authorName = view.findViewById(R.id.searchRecipeAuthor);
             recipeImg = view.findViewById(R.id.searchRecipeImg);

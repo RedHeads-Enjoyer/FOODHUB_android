@@ -3,6 +3,7 @@ package com.example.foodhub.Profile;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.text.TextRunShaper;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class UserProfileFragment extends Fragment {
-
+    TextView empty;
     Button logoutBtn;
     RecyclerView recyclerView;
     ProfileRecipeAdapter profileRecipeAdapter;
@@ -57,6 +60,7 @@ public class UserProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         recipes.clear();
+        empty = view.findViewById(R.id.UserProfileEmpty);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -69,6 +73,8 @@ public class UserProfileFragment extends Fragment {
                     if (recipe.getUserID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid().toString())) recipes.add(recipe);
                 }
                 profileRecipeAdapter.notifyDataSetChanged();
+                if (recipes.size() == 0) empty.setVisibility(View.VISIBLE);
+                else empty.setVisibility(View.GONE);
             }
 
             @Override

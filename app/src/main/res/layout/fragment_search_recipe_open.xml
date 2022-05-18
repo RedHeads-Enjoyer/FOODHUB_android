@@ -61,20 +61,20 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/view"
                 app:layout_constraintStart_toEndOf="@+id/OpenRecipeImage"
-                app:layout_constraintTop_toBottomOf="@+id/OpenRecipeUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/OpenRecipeName" />
 
             <TextView
                 android:id="@+id/OpenRecipeViewCounter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="24dp"
                 android:text="TextView"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/OpenRecipeUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/OpenRecipeName" />
 
             <TextView
                 android:id="@+id/OpenRecipeLikeCounter"
@@ -129,9 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="TextView"
+                android:text="Автор"
                 app:layout_constraintStart_toEndOf="@+id/OpenRecipeImage"
-                app:layout_constraintTop_toBottomOf="@+id/OpenRecipeName" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
             <Button
                 android:id="@+id/OpenRecipeLikeBtn"
@@ -200,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="Вернуться"
+                android:text="НАЗАД"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/OpenRecipeName" />
 
