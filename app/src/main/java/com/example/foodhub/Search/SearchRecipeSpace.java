@@ -1,5 +1,7 @@
 package com.example.foodhub.Search;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
