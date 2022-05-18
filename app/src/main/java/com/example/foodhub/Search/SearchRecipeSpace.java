@@ -95,7 +95,7 @@ public class SearchRecipeSpace extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (searchBar.getText().toString().trim() == "Аким Пишенин") {
+                if (searchBar.getText().toString().trim().equals("Аким Пишенин")) {
                     MediaPlayer mediaPlayer = MediaPlayer.create(inflater.getContext(), R.raw.acldtljomghjri);
                     mediaPlayer.start();
                 }
