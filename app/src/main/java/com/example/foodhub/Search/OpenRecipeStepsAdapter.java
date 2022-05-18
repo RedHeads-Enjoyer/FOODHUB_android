@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,14 +77,15 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
         holder.stepDesc.setText(step.getDesc());
         holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1));
 
+
         if (step.getHour() != 0 || step.getMin() !=0 || step.getSec() !=0) {
+
             START_TIME = step.getHour() * 3600 * 1000 + step.getMin() * 60 * 1000 + step.getSec() * 1000;
             timerTimeLeft = START_TIME;
 
             holder.timeLeft.setVisibility(View.VISIBLE);
             holder.timerStartStop.setVisibility(View.VISIBLE);
             holder.timerReset.setVisibility(View.INVISIBLE);
-            
 
             holder.timerStartStop.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -177,3 +179,4 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
     }
 
 }
+
