@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
     private TextView banner;
-    private EditText registerUsername, registerEmail, registerPassword;
+    private EditText registerUsername, registerEmail, registerPassword, registerPasswordSecond;
     private Button registerButton;
     private ProgressBar progressBar;
 
@@ -48,6 +48,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         registerUsername = (EditText) findViewById(R.id.registerUsername);
         registerEmail = (EditText) findViewById(R.id.registerEmail);
         registerPassword = (EditText) findViewById(R.id.registerPassword);
+        registerPasswordSecond = (EditText) findViewById(R.id.registerPasswordSecond);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBarReg);
         progressBar.setVisibility(View.GONE);
@@ -69,6 +70,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String email = registerEmail.getText().toString().trim();
         String username = registerUsername.getText().toString().trim();
         String password = registerPassword.getText().toString().trim();
+        String passwordSec = registerPasswordSecond.getText().toString().trim();
 
         if (username.isEmpty()) {
             registerUsername.setError("Напишите тут свой псевдоним");
@@ -85,6 +87,13 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             registerPassword.requestFocus();
             return;
         }
+
+        if (!passwordSec.equals(password)) {
+            registerPasswordSecond.setError("Пароли не совпадают");
+            registerPasswordSecond.requestFocus();
+            return;
+        }
+
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             registerEmail.setError("Укажите корректную почту");

@@ -70,9 +70,24 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (recipe.getWhoWatched().contains(userID)) {
-//                    holder.viewPic.setImageDrawable(holder.recipeImg.getDrawable(R.drawable.cool_view));
-//                }
+                if (recipe.getWhoWatched().contains(userID)) {
+                    holder.viewPic.setImageResource(R.drawable.cool_view);
+                }
+                else {
+                    holder.viewPic.setImageResource(R.drawable.view);
+                }
+                if (recipe.getWhoLiked().contains(userID)) {
+                    holder.likePic.setImageResource(R.drawable.cool_like);
+                }
+                else {
+                    holder.likePic.setImageResource(R.drawable.like);
+                }
+                if (recipe.getWhoDisliked().contains(userID)) {
+                    holder.dislikePic.setImageResource(R.drawable.cool_dislike);
+                }
+                else {
+                    holder.dislikePic.setImageResource(R.drawable.dislike);
+                }
                 User userProfile = snapshot.getValue(User.class);
                 Picasso.get().load(recipe.getImage()).resize(350, 350).placeholder(R.drawable.gal).centerCrop().into(holder.recipeImg);
                 holder.authorName.setText(userProfile.getUsername());
