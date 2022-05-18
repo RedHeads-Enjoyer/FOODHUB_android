@@ -100,7 +100,7 @@ public class ProfileRecipeAdapter extends RecyclerView.Adapter<ProfileRecipeAdap
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
                 builder.setTitle("Удаение")
-                        .setMessage("Вы  уврены, что хотите удалить рецепт " + recipe.getName() + "?")
+                        .setMessage("Вы  уверены, что хотите удалить рецепт " + recipe.getName() + "?")
                         .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

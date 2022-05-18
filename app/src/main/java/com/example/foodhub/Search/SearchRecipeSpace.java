@@ -1,5 +1,6 @@
 package com.example.foodhub.Search;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -83,6 +84,11 @@ public class SearchRecipeSpace extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (searchBar.getText().toString().trim() == "Аким Пишенин") {
+                    MediaPlayer mediaPlayer = MediaPlayer.create(inflater.getContext(), R.raw.sound2);
+                    mediaPlayer.start();
+                }
                 recipes.clear();
                 databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
                 databaseReference.addValueEventListener(new ValueEventListener() {

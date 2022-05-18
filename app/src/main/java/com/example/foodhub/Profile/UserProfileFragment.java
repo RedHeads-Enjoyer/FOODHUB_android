@@ -89,7 +89,7 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
                 builder.setTitle("Выход")
-                        .setMessage("Вы  уврены, что хотите выйти?")
+                        .setMessage("Вы  уверены, что хотите выйти?")
                         .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

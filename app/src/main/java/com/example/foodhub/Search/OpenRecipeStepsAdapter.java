@@ -47,10 +47,11 @@ import java.util.Locale;
 
 public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeStepsAdapter.ViewHolder> {
 
-    private final LayoutInflater inflater;
-    private final List<Step> steps;
-    Step step;
+    final LayoutInflater inflater;
+    final List<Step> steps;
+    private Step step;
     CountDownTimer countDownTimer;
+    
     boolean isTimerRunning = false;
     long START_TIME;
     long timerTimeLeft;
@@ -70,7 +71,8 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        step = steps.get(position);
+
+        step = steps.get(holder.getAdapterPosition());
         holder.stepDesc.setText(step.getDesc());
         holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1));
 
@@ -81,6 +83,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
             holder.timeLeft.setVisibility(View.VISIBLE);
             holder.timerStartStop.setVisibility(View.VISIBLE);
             holder.timerReset.setVisibility(View.INVISIBLE);
+            
 
             holder.timerStartStop.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,12 +113,14 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
                                 holder.timerReset.setVisibility(View.VISIBLE);
                                 mediaPlayer = MediaPlayer.create(inflater.getContext(), R.raw.timer);
                                 mediaPlayer.start();
+                                mediaPlayer.setLooping(true);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
                                 builder.setTitle("Таймер")
                                         .setMessage("Таймер этапа " + Integer.toString(holder.getAdapterPosition() + 1) + " закончил свою работу")
                                         .setPositiveButton("Понял", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
+                                                mediaPlayer.stop();
                                                 dialogInterface.cancel();
                                             }
                                         });

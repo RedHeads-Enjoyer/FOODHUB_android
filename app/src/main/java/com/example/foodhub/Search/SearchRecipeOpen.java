@@ -3,8 +3,11 @@ package com.example.foodhub.Search;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,7 +46,7 @@ public class SearchRecipeOpen extends Fragment {
     private TextView RecipeName, ViewsCounter, LikeCounter, DislikeCounter, RecipeDesc, Username;
     private ImageView RecipeImg;
     private RecyclerView recyclerView;
-    private Button LikeBtn, DislikeBtn;
+    private Button LikeBtn, DislikeBtn, returnBtn;
 
     private String recipeID;
     private int likeC, dislikeC;
@@ -75,6 +78,19 @@ public class SearchRecipeOpen extends Fragment {
         RecipeImg = view.findViewById(R.id.OpenRecipeImage);
         LikeBtn = view.findViewById(R.id.OpenRecipeLikeBtn);
         DislikeBtn = view.findViewById(R.id.OpenRecipeDislikeBtn);
+        returnBtn = view.findViewById(R.id.OprenRecipeReturnButton);
+
+        returnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment srs = new SearchRecipeSpace();
+                AppCompatActivity appCompatActivity = (AppCompatActivity) view.getContext();
+                FragmentManager fragmentManager = appCompatActivity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.SearchRecipeHostLayput, srs);
+                fragmentTransaction.commit();
+            }
+        });
 
         recyclerView = view.findViewById(R.id.OpenRecipeRecyclerView);
 

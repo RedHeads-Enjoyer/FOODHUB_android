@@ -145,7 +145,6 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
                 FragmentManager fragmentManager = appCompatActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.SearchRecipeHostLayput, sro);
-                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
