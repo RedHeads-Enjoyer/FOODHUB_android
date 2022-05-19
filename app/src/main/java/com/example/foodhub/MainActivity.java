@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthCredential;
@@ -109,17 +111,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    startActivity(new Intent(MainActivity.this, FoodHubActivity.class));
+                    progressBar.setVisibility(View.GONE);}
 
-                    if(user.isEmailVerified()) {
-                        startActivity(new Intent(MainActivity.this, FoodHubActivity.class));
-                        progressBar.setVisibility(View.GONE);
-                    }
-                    else {
-                        user.sendEmailVerification();
-                        Toast.makeText(MainActivity.this, "Проверьте свою почту, чтобы подтверлить аккаунт", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }
                 else {
                     Toast.makeText(MainActivity.this, "Ошибка! Проверьте введенные данные!", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
