@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.example.foodhub.MainActivity;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;
@@ -80,6 +81,8 @@ public class add_new_step extends Fragment {
                     secPicker.setVisibility(View.VISIBLE);
                     minPicker.setVisibility(View.VISIBLE);
                     hourPicker.setVisibility(View.VISIBLE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 else {
                     secPicker.setVisibility(View.GONE);

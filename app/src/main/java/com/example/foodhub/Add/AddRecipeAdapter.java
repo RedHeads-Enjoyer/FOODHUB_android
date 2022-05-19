@@ -65,7 +65,7 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(inflater.getContext());
-                builder.setTitle("Удаение")
+                builder.setTitle("Удаление")
                         .setMessage("Вы  уверены, что хотите удалить этап " + Integer.toString(holder.getAdapterPosition() + 1) + "?")
                         .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                             @Override
