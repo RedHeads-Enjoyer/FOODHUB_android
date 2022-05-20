@@ -39,7 +39,8 @@ public class SearchRecipeOpen extends Fragment {
     private ArrayList<Step> steps = new ArrayList<>();
     private ArrayList<String> whoLiked = new ArrayList<>();
     private ArrayList<String> whoDisliked = new ArrayList<>();
-    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+    private Bundle bundle;
+    private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
     int likeInd;
     int disLikeInd;
 
@@ -80,6 +81,7 @@ public class SearchRecipeOpen extends Fragment {
         DislikeBtn = view.findViewById(R.id.OpenRecipeDislikeBtn);
         returnBtn = view.findViewById(R.id.OprenRecipeReturnButton);
 
+        // Вернуться к фрагменту поиска
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,10 +96,9 @@ public class SearchRecipeOpen extends Fragment {
 
         recyclerView = view.findViewById(R.id.OpenRecipeRecyclerView);
 
-
-        Bundle bundle = new Bundle();
+        // Получение данных из бандла
+        bundle = new Bundle();
         bundle = this.getArguments();
-
         RecipeName.setText(bundle.getString("recipe_name"));
         RecipeDesc.setText(bundle.getString("recipe_desc"));
         ViewsCounter.setText(Integer.toString(bundle.getInt("recipe_views")));
@@ -105,18 +106,17 @@ public class SearchRecipeOpen extends Fragment {
         DislikeCounter.setText(Integer.toString(bundle.getInt("recipe_dislike")));
         Username.setText(bundle.getString("username"));
 
-        sec = bundle.getIntegerArrayList("step_sec");
-        min = bundle.getIntegerArrayList("step_min");
-        hour = bundle.getIntegerArrayList("step_hour");
-        stepDesc = bundle.getStringArrayList("step_desc");
-        recipeID = bundle.getString("recipe_ID");
-        likeC = bundle.getInt("recipe_like");
-        dislikeC = bundle.getInt("recipe_dislike");
-
-        whoLiked = bundle.getStringArrayList("who_liked");
+        sec         = bundle.getIntegerArrayList("step_sec");
+        min         = bundle.getIntegerArrayList("step_min");
+        hour        = bundle.getIntegerArrayList("step_hour");
+        stepDesc    = bundle.getStringArrayList("step_desc");
+        recipeID    = bundle.getString("recipe_ID");
+        likeC       = bundle.getInt("recipe_like");
+        dislikeC    = bundle.getInt("recipe_dislike");
+        whoLiked    = bundle.getStringArrayList("who_liked");
         whoDisliked = bundle.getStringArrayList("who_disliked");
 
-
+        // установка цвета кнопок оценки и установка их в правильное положение
         l = false;
         dl = false;
         if (whoDisliked.contains(userID)) {
@@ -152,6 +152,7 @@ public class SearchRecipeOpen extends Fragment {
             steps.add(new Step(stepDesc.get(i), sec.get(i), min.get(i), hour.get(i)));
         }
 
+        // Установка RecyclerView
         openRecipeStepsAdapter = new OpenRecipeStepsAdapter(getContext(), steps);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -159,6 +160,7 @@ public class SearchRecipeOpen extends Fragment {
 
         Picasso.get().load(bundle.getString("recipe_img")).resize(350, 350).placeholder(R.drawable.gal).centerCrop().into(RecipeImg);
 
+        // Кнопка понравилось
         LikeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,6 +187,7 @@ public class SearchRecipeOpen extends Fragment {
             }
         });
 
+        // кнопка не понравилось
         DislikeBtn.setOnClickListener(new View.OnClickListener() {
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Recipe").child(recipeID);
             @Override

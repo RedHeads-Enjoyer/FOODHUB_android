@@ -70,8 +70,9 @@ public class ProfileRecipeAdapter extends RecyclerView.Adapter<ProfileRecipeAdap
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.child(recipe.getUserID()).addListenerForSingleValueEvent(new ValueEventListener() {
 
+        // Получение данных из базы данных
+        reference.child(recipe.getUserID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User userProfile = snapshot.getValue(User.class);
@@ -92,9 +93,10 @@ public class ProfileRecipeAdapter extends RecyclerView.Adapter<ProfileRecipeAdap
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
+
+        // Удаление рецепта
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,6 +125,7 @@ public class ProfileRecipeAdapter extends RecyclerView.Adapter<ProfileRecipeAdap
         });
     }
 
+    // Получить количество элементво в адаптере
     @Override
     public int getItemCount() {
         if (recipes == null) return 0;

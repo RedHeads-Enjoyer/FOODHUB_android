@@ -11,6 +11,7 @@ import com.example.foodhub.Search.SearchRecipeFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     private static final int CARD_ITEM_SIZE = 3;
+    // Переход между тремя фрагментами в FoodHubActivity
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }

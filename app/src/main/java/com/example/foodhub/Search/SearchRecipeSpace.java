@@ -64,6 +64,8 @@ public class SearchRecipeSpace extends Fragment {
         emptySearch = view.findViewById(R.id.SearchRecipeEmpty);
         progressBar.setVisibility(View.VISIBLE);
         recipes.clear();
+
+        // Получение данных из базы данных
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,14 +87,15 @@ public class SearchRecipeSpace extends Fragment {
             }
         });
 
-        searchBar = view.findViewById(R.id.searchBarText);
-        searchBtn = view.findViewById(R.id.searchRecipeBtn);
+        searchBar    = view.findViewById(R.id.searchBarText);
+        searchBtn    = view.findViewById(R.id.searchRecipeBtn);
         recyclerView = view.findViewById(R.id.searchRecipeRecyclerView);
         searchRecipeAdapter = new SearchRecipeAdapter(getContext(), recipes);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(searchRecipeAdapter);
 
+        // Поиск рецепта
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

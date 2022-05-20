@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +13,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.foodhub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Locale;
 
 public class ForgotPasswordActivity extends AppCompatActivity  {
 
@@ -42,6 +41,7 @@ public class ForgotPasswordActivity extends AppCompatActivity  {
 
         auth = FirebaseAuth.getInstance();
 
+        // Вернуться в прошлую активность
         resetCansel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +57,7 @@ public class ForgotPasswordActivity extends AppCompatActivity  {
         });
     }
 
+    // Изменение пароля
     private void resetPassword() {
         String email = forgotPasswordEmail.getText().toString().trim();
 

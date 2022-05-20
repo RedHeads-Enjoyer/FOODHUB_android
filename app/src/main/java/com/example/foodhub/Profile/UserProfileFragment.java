@@ -3,7 +3,6 @@ package com.example.foodhub.Profile;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.text.TextRunShaper;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,28 +18,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.foodhub.MainActivity;
+import com.example.foodhub.Authentication.MainActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.Recipe;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class UserProfileFragment extends Fragment {
-    TextView empty;
-    Button logoutBtn;
-    RecyclerView recyclerView;
-    ProfileRecipeAdapter profileRecipeAdapter;
+    private TextView empty;
+    private Button logoutBtn;
+    private RecyclerView recyclerView;
+    private ProfileRecipeAdapter profileRecipeAdapter;
     private Recipe recipe = new Recipe();
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
     private ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
     public UserProfileFragment() {
@@ -62,6 +58,7 @@ public class UserProfileFragment extends Fragment {
         recipes.clear();
         empty = view.findViewById(R.id.UserProfileEmpty);
 
+        // Полчение рецептов из базы данных
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Recipe");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,6 +87,7 @@ public class UserProfileFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(profileRecipeAdapter);
 
+        // Выход из аккаунта
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

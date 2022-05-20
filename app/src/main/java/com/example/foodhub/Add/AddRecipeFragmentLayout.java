@@ -67,15 +67,14 @@ public class AddRecipeFragmentLayout extends Fragment {
 
     private AddRecipeAdapter addRecipeAdapter;
     private Uri imageUri;
-
     private String mainImageUri;
-
     private StorageReference storageReference;
+    private Bundle bundle;
 
-    ArrayList<String> step_desc = new ArrayList<String>();
-    ArrayList<Integer> step_sec= new ArrayList<Integer>();
-    ArrayList<Integer> step_min= new ArrayList<Integer>();
-    ArrayList<Integer> step_hour= new ArrayList<Integer>();
+    ArrayList<String> step_desc  = new ArrayList<String>();
+    ArrayList<Integer> step_sec  = new ArrayList<Integer>();
+    ArrayList<Integer> step_min  = new ArrayList<Integer>();
+    ArrayList<Integer> step_hour = new ArrayList<Integer>();
 
     ArrayList<Step> steps = new ArrayList<Step>();
 
@@ -85,8 +84,7 @@ public class AddRecipeFragmentLayout extends Fragment {
 
     }
 
-
-
+    // Взять фото из галереи
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -110,10 +108,10 @@ public class AddRecipeFragmentLayout extends Fragment {
         description = view.findViewById(R.id.addRecipeDesc);
         picture     = view.findViewById(R.id.addRecipeImage);
         gallery     = view.findViewById(R.id.addRecipeImageButton);
-
         picture.setImageDrawable(getResources().getDrawable(R.drawable.gal));
 
-        Bundle bundle = new Bundle();
+        //  Получение данных из бандла
+        bundle = new Bundle();
         bundle = this.getArguments();
         if (bundle.getStringArrayList("step_desc_list") != null) {
             name       .setText(bundle.getString("recipe_name"));
@@ -129,8 +127,6 @@ public class AddRecipeFragmentLayout extends Fragment {
             }
 
             picture.setImageURI(imageUri);
-
-
             step_desc = bundle.getStringArrayList("step_desc_list");
             if (step_desc != null) {
                 for (int i = 0; i < step_desc.size(); i++) {
@@ -140,7 +136,7 @@ public class AddRecipeFragmentLayout extends Fragment {
             }
         }
 
-
+        // Кнопка отправть рецепт
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,13 +145,14 @@ public class AddRecipeFragmentLayout extends Fragment {
         });
 
 
-
+        // Создание RecyclerView
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.addrecipeview);
         addRecipeAdapter = new AddRecipeAdapter(getContext(), steps);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(addRecipeAdapter);
 
+        // Переход на фрагмент создания этапа
         addStep = (Button) view.findViewById(R.id.addRecipeNewStep);
         addStep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +195,7 @@ public class AddRecipeFragmentLayout extends Fragment {
             }
         });
 
-
+        // Переход к галерее
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,6 +206,7 @@ public class AddRecipeFragmentLayout extends Fragment {
         return view;
     }
 
+    // Отправление рецепта
     private void sendRecipe() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Отправка")

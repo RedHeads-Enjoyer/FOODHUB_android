@@ -65,6 +65,8 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         DatabaseReference reference;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
+
+        // Получение данных из базы данных
         reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(recipe.getUserID()).addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -111,6 +113,8 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
 
             }
         });
+
+        // Открытие рецепта в новом фрагменте
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,6 +173,8 @@ public class SearchRecipeAdapter  extends RecyclerView.Adapter<SearchRecipeAdapt
         });
     }
 
+
+    // Полчучить количество элементов в адаптере
     @Override
     public int getItemCount() {
         if (recipes == null) return 0;

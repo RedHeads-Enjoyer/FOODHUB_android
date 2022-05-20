@@ -18,6 +18,7 @@ public class FoodHubActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
         viewPager.setAdapter(createCardAdapter());
+        // Измененеи TabLoayiut в зависимости от положения
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

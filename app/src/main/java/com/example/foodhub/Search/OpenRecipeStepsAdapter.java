@@ -4,46 +4,21 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.MainActivity;
 import com.example.foodhub.R;
-import com.example.foodhub.Recipe;
 import com.example.foodhub.Step;
-import com.example.foodhub.User;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -77,7 +52,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
         holder.stepDesc.setText(step.getDesc());
         holder.stepPosition.setText("Этап " + Integer.toString(holder.getAdapterPosition() + 1));
 
-
+        // Таймер и все, что с ним связано (пауза, старт, перезапуск)
         if (step.getHour() != 0 || step.getMin() !=0 || step.getSec() !=0) {
 
             holder.START_TIME = step.getHour() * 3600 * 1000 + step.getMin() * 60 * 1000 + step.getSec() * 1000;
@@ -159,6 +134,7 @@ public class OpenRecipeStepsAdapter extends RecyclerView.Adapter<OpenRecipeSteps
         }
     }
 
+    // Получить количество элементов в адаптере
     @Override
     public int getItemCount() {
         if (steps == null) return 0;

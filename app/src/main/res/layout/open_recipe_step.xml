@@ -7,7 +7,7 @@
 
     <Button
         android:id="@+id/timerResetTimer"
-        android:layout_width="65dp"
+        android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
@@ -35,10 +35,11 @@
 
     <Button
         android:id="@+id/timerStartTimer"
-        android:layout_width="65dp"
+        android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
+        android:paddingStart="0sp"
         android:paddingLeft="0sp"
         android:paddingTop="0sp"
         android:paddingRight="0sp"

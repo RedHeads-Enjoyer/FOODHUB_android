@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PatternMatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodhub.R;
+import com.example.foodhub.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -66,6 +67,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Зарегистрировать пользователя
     private void registerUser() {
         String email = registerEmail.getText().toString().trim();
         String username = registerUsername.getText().toString().trim();

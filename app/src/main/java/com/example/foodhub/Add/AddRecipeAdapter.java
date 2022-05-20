@@ -61,6 +61,8 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
         else {
             holder.durationView.setText("Длительность этапа не указана");
         }
+
+        // Удаление этапа
         holder.buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,12 +89,14 @@ public class AddRecipeAdapter  extends RecyclerView.Adapter<AddRecipeAdapter.Vie
         });
     }
 
+    // Получить количество элементов в адаптере
     @Override
     public int getItemCount() {
         if (steps == null) return 0;
         return steps.size();
     }
 
+    // Получение полей
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView buttonView;
         final TextView descView, durationView, stepPos;
